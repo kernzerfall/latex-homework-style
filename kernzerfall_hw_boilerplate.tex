@@ -1,0 +1,38 @@
+\documentclass[a4paper]{scrartcl}
+
+% Layout & Encoding
+\usepackage[a4paper, top=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{bookmark}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+
+% Mathesymbole
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{microtype}
+\usepackage{stmaryrd}
+
+% Einbettung von Grafiken
+\usepackage{graphicx}
+\usepackage{pdfpages}
+
+% FoSAP
+\usepackage{tikz}
+\usetikzlibrary{automata, positioning, arrows}
+
+% Style
+\usepackage{kernzerfall_hw}
+
+\tikzset{
+    ->, % gerichtete Kanten
+    >=stealth, % dicke Pfeile
+    node distance=3cm, % min. Distanz zwischen Knoten
+    every state/.style={thick, fill=gray!10}, % `state` Farbe und Dicke
+    initial text=$ $, % Text auf dem ersten Pfeil
+}
+
+% Metadaten
+\usepackage{hyperref}
