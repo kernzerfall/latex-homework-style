@@ -1,0 +1,68 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%- kernzerfall's LaTeX Theme for Homework -%%%%
+%%%%-                                        -%%%%
+%%%%- Revision: R1-24.04.2022                -%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% ----- Requirements ------ %
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{kernzerfall_hw}[kernzerfall's LaTeX theme for Homework]
+\RequirePackage{hyperref}
+\RequirePackage{csvsimple}
+
+% ------ Metadata ------ %
+\AtBeginDocument{
+	\hypersetup{bookmarksnumbered=true,%
+	}
+}
+
+% ------ Environment variables ------ %
+\newcommand{\group}[1]{\renewcommand{\group}{#1}}
+\newcommand{\@group}{}
+\newcommand{\class}[1]{\renewcommand{\class}{#1}}
+\newcommand{\@class}{}
+\newcommand{\assignment}[1]{\renewcommand{\assignment}{#1}}
+\newcommand{\@assignment}{}
+
+% ------ Group Roster Table ------- %
+
+% Path to CSV
+% Default path: working directory/group.csv
+\def \groupcsv{group.csv}
+% Command to update csv path
+\newcommand{\usegroupcsv}[1]{\def \groupcsv{#1}}
+
+\newcommand{\makegrouproster}{%
+    \begin{center}%
+        \vspace{2em}%
+        \csvreader[tabular=|c|c|c|,%
+            table head=\hline\titlefont{Vor- und Nachname} & \titlefont{Matrikelnummer}\\\hline,%
+            late after line=\\,%
+            late after last line=\\\hline%
+        ]{\groupcsv}%
+        {name=\name, matrnr=\matrnr}%
+        {\name & \matrnr}%
+    \end{center}
+}
+
+% ------ Maketitle ------ %
+\renewcommand{\maketitle}%
+{%
+    \title{\assignment}%
+    \author{\group}%
+    \subject{\class}%
+    \hypersetup{%
+        pdftitle={\@title},
+        pdfauthor={\@author},
+        pdfsubject={\@subject}
+    }%
+    \begin{center}%
+        \titlefont%
+        \large{\class\hfill\group} \\
+        \normalsize{\assignment\hfill\,}\\
+        \normalfont%
+    \end{center}%
+}
+
+% ------ Little things to make my life easier ------ %
+\newcommand{\sothat}{\,\,|\,\,}
