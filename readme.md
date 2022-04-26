@@ -10,18 +10,6 @@ Because I love LaTeX but I hate having to write the same things every time
 ```latex
 \documentclass[a4paper]{scrartcl} % AFAIK my theme only supports `scrartcl`
 
-% Layout & Encoding
-\usepackage[
-    a4paper, 
-    top=2cm, 
-    left=2cm, 
-    right=2cm]{geometry}        % Standard geometry options (probably not required)
-\usepackage{bookmark}           % Required by scrartcl
-\usepackage[T1]{fontenc}        % Font encoding (probably not required, but recommended)
-\usepackage[utf8]{inputenc}     % Use UTF-8 (not required, but recommended)
-\usepackage{lmodern}            % Pretty fonts (not required)
-\usepackage{hyperref}           % Sets metadata on PDF (required!)
-
 % These three are used for \maketitle, make sure to set them
 \class{<class name>}
 \group{<group name>}
@@ -65,5 +53,35 @@ Name3, ID3
 |--|--|--|
 |`\maketitle`| none| Generates a header using the values of `\class`, `\assignment` and `\group`. Sets the following `hyperref` properties: `pdftitle`, `pdfauthor`, `pdfsubject`.|
 |`\makegrouproster`|none| Generates a Group Roster Table using the values found in a `.csv` file.|
-|`\usegroupcsv`| `path to csv`| Overrides the default path for the Group's `.csv`.|
+|`\usegroupcsv`| path to csv| Overrides the default path for the Group's `.csv`.|
 |`\sothat`|none|Inserts `\,\,\|\,\,`. Useful for set declarations.|
+|`\ds`| 1 | Inserts its argument in double spaces (`\,\,~#1~\,\,`)|
+|`\tikzfosap`| none | Injects a TikZ preset for drawing finite automata. (Sets arrows, backgrounds, spaces, etc.).|
+
+
+## Notice
+
+I intentionally abused `RequiresPackage` statements in my .sty to keep the boilerplate light. If something breaks or you need to modify an included package look there.
+
+**Included Packages**
+
+1. Actual requirements
+    * hyperref
+    * csvsimple
+    * bookmark
+2. Geometry
+    * geometry (with `a4paper, top=2cm, left=2cm, right=2cm`)
+3. Math symbols
+    * amsmath
+    * amssymb
+    * mathtools
+    * microtype
+    * stmaryrd
+4. Graphics
+    * tikz
+    * graphicx
+    * pdfpages
+5. Fonts/Encoding
+    * lmodern
+    * inputenc (with `utf8`)
+    * fontenc (with `T1`)

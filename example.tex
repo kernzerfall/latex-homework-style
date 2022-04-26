@@ -1,21 +1,11 @@
 \documentclass[a4paper]{scrartcl} % AFAIK my theme only supports `scrartcl`
 
-% Layout & Encoding
-\usepackage[
-    a4paper, 
-    top=2cm, 
-    left=2cm, 
-    right=2cm]{geometry}        % Standard geometry options
-\usepackage{bookmark}           % Required by scrartcl
-\usepackage[T1]{fontenc}        % Font encoding (probably not required, recommended)
-\usepackage[utf8]{inputenc}     % Use UTF-8 (not required, recommended)
-\usepackage{lmodern}            % Pretty fonts (not required)
-\usepackage{hyperref}           % Sets metadata on PDF (required!)
-
 % Include style/config
 % Always do this last!
 \usepackage{kernzerfall_hw}
 \input{kernzerfall_hw.tex}
+
+% TikZ commands come after
 
 \begin{document}
     \maketitle
