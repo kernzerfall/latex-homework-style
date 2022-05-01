@@ -33,6 +33,9 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 
+% Code listings
+\RequirePackage{listings}
+
 % ------ Metadata ------ %
 \AtBeginDocument{
 	\hypersetup{bookmarksnumbered=true,%
@@ -46,7 +49,8 @@
 \newcommand{\@class}{}
 \newcommand{\assignment}[1]{\renewcommand{\assignment}{#1}}
 \newcommand{\@assignment}{}
-
+\def \teamname{\,}
+\newcommand{\team}[1]{\def \teamname{#1}}
 % ------ Group Roster Table ------- %
 
 % Path to CSV
@@ -82,7 +86,7 @@
     \begin{center}%
         \titlefont%
         \large{\class\hfill\group} \\
-        \normalsize{\assignment\hfill\,}\\
+        \normalsize{\assignment\hfill\teamname}\\
         \normalfont%
     \end{center}%
 }
@@ -99,4 +103,31 @@
         every state/.style={thick, fill=gray!10}, % `state` Farbe und Dicke
         initial text=$ $, % Text auf dem ersten Pfeil
     }
+}
+
+% ------ lstlistings style ------ %
+\newcommand{\codestyle}{%
+    \definecolor{codegreen}{rgb}{0,0.6,0}%
+    \definecolor{codegray}{rgb}{0.5,0.5,0.5}%
+    \definecolor{codepurple}{rgb}{0.58,0,0.82}%
+    \definecolor{backcolour}{rgb}{0.95,0.95,0.92}%
+    \lstdefinestyle{krnz_code}{%
+        backgroundcolor=\color{backcolour},%
+        commentstyle=\color{codegreen},%
+        keywordstyle=\color{magenta},%
+        numberstyle=\tiny\color{codegray},%
+        stringstyle=\color{codepurple},%
+        basicstyle=\ttfamily\footnotesize,%
+        breakatwhitespace=false,%         
+        breaklines=true,%                 
+        captionpos=b,%                    
+        keepspaces=true,%                 
+        numbers=left,%                    
+        numbersep=5pt,%                  
+        showspaces=false,%                
+        showstringspaces=false,%
+        showtabs=false,%                  
+        tabsize=2%
+    }%
+    \lstset{style=krnz_code}%
 }
