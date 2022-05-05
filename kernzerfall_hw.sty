@@ -96,11 +96,13 @@
 \newcommand{\ds}[1]{\,\,~#1~\,\,}
 
 \newcommand{\tikzfosap}{%
+    \usetikzlibrary{automata, positioning, arrows, shapes.geometric}%
     \tikzset{%
         ->, % gerichtete Kanten
         >=stealth, % dicke Pfeile
         node distance=3cm, % min. Distanz zwischen Knoten
         every state/.style={thick, fill=gray!10}, % `state` Farbe und Dicke
+        elliptic/.style={draw,ellipse},%
         initial text=$ $, % Text auf dem ersten Pfeil
     }
 }
