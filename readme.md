@@ -14,6 +14,7 @@ Because I love LaTeX but I hate having to write the same things every time
 \class{<class name>}
 \group{<group name>}
 \assignment{<assignment name>}
+\team{<opt - team name>} % optional
 
 % This is used for \makegrouproster, which is optional
 % Set it if you want to automatically generate a group table
@@ -47,6 +48,7 @@ Name3, ID3
 * Automatic setting of `hyperref` options (using `\maketitle`)
 * Automatic population of a group roster table using a simple `.csv` file
 * `\maketitle` (first page header) style
+* Shorthand commands for ℕ, ℤ, ℝ, ℂ (`\N`, `\Z`, `\R`, `\C`)  
 
 ### Commands
 |Command|Parameters|Description|
@@ -54,9 +56,10 @@ Name3, ID3
 |`\maketitle`| none| Generates a header using the values of `\class`, `\assignment` and `\group`. Sets the following `hyperref` properties: `pdftitle`, `pdfauthor`, `pdfsubject`.|
 |`\makegrouproster`|none| Generates a Group Roster Table using the values found in a `.csv` file.|
 |`\usegroupcsv`| path to csv| Overrides the default path for the Group's `.csv`.|
+|`\tikzfosap`| none | Injects a TikZ preset for drawing finite automata. (Sets arrows, backgrounds, spaces, etc.).|
+|`\codestyle`|none| Injects an lstlistings style for code listings|
 |`\sothat`|none|Inserts `\,\,\|\,\,`. Useful for set declarations.|
 |`\ds`| 1 | Inserts its argument in double spaces (`\,\,~#1~\,\,`)|
-|`\tikzfosap`| none | Injects a TikZ preset for drawing finite automata. (Sets arrows, backgrounds, spaces, etc.).|
 
 
 ## Notice
