@@ -11,30 +11,32 @@
 \RequirePackage{csvsimple}
 \RequirePackage{bookmark}
 
-% ------ Abuse requires to make the boilerplate lighter ------ %
+% ------ Inject boilerplate ------ %
 
-% Geometry
-\RequirePackage[a4paper, top=2cm, left=2cm, right=2cm]{geometry}
+\newcommand{\boilerplate}{
+    % Geometry
+    \usepackage[a4paper, top=2cm, left=2cm, right=2cm]{geometry}
 
-% Math Symbols
-\RequirePackage{amsmath}
-\RequirePackage{amssymb}
-\RequirePackage{mathtools}
-\RequirePackage{microtype}
-\RequirePackage{stmaryrd}
+    % Math Symbols
+    \usepackage{amsmath}
+    \usepackage{amssymb}
+    \usepackage{mathtools}
+    \usepackage{microtype}
+    \usepackage{stmaryrd}
 
-% Graphics
-\RequirePackage{tikz}
-\RequirePackage{graphicx}
-\RequirePackage{pdfpages}
+    % Graphics
+    \usepackage{tikz}
+    \usepackage{graphicx}
+    \usepackage{pdfpages}
 
-% Fonts/Encoding
-\RequirePackage{lmodern}
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
+    % Fonts/Encoding
+    \usepackage{lmodern}
+    \usepackage[utf8]{inputenc}
+    \usepackage[T1]{fontenc}
 
-% Code listings
-\RequirePackage{listings}
+    % Code listings
+    \usepackage{listings}
+}
 
 % ------ Metadata ------ %
 \AtBeginDocument{
