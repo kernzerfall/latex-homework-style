@@ -76,7 +76,11 @@
 \renewcommand{\maketitle}%
 {%
     \title{\assignment}%
-    \author{\group}%
+    \if \teamname {\,}%
+        \author{\group}%
+    \else%
+        \author{\group~-~\teamname}%
+    \fi%
     \subject{\class}%
     \hypersetup{%
         pdftitle={\@title},
