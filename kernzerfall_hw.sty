@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%- kernzerfall's LaTeX Theme for Homework -%%%%
 %%%%-                                        -%%%%
-%%%%- Revision: R4-13.05.2022                -%%%%
+%%%%- Revision: R5-24.05.2022                -%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ------ Requirements ------ %
@@ -36,6 +36,8 @@
 
     % Code listings
     \usepackage{listings}
+
+    % Colors
 }
 
 % ------ Metadata ------ %
@@ -125,6 +127,8 @@
         every state/.style={thick, fill=gray!10}, % `state` Farbe und Dicke
         elliptic/.style={draw,ellipse},%
         initial text=$ $, % Text auf dem ersten Pfeil
+        tree node/.style={fill=blue!70, text=white, circle, minimum width=0.85cm},%
+        tree leaf/.style={fill=red!70, text=white, rectangle,  minimum height=0.5cm,   minimum width=0.5cm,},%
     }
 }
 
