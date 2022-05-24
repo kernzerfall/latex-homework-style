@@ -120,6 +120,8 @@
 % Drawing Finite Automata
 \newcommand{\tikzfosap}{%
     \usetikzlibrary{automata, positioning, arrows, shapes.geometric}%
+    \definecolor{fosapblue}{RGB}{0,128,255}%
+    \definecolor{fosappink}{RGB}{252,163,212}%
     \tikzset{%
         ->, % gerichtete Kanten
         >=stealth, % dicke Pfeile
@@ -127,8 +129,8 @@
         every state/.style={thick, fill=gray!10}, % `state` Farbe und Dicke
         elliptic/.style={draw,ellipse},%
         initial text=$ $, % Text auf dem ersten Pfeil
-        tree node/.style={fill=blue!70, text=white, circle, minimum width=0.85cm},%
-        tree leaf/.style={fill=red!70, text=white, rectangle,  minimum height=0.5cm,   minimum width=0.5cm,},%
+        tree node/.style={fill=fosapblue, text=white, draw, circle, minimum width=0.85cm},%
+        tree leaf/.style={fill=fosappink, text=black, rectangle,  minimum height=0.5cm,   minimum width=0.5cm,},%
     }
 }
 
