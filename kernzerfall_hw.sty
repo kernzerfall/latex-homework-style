@@ -38,6 +38,12 @@
     \usepackage{listings}
 
     % Colors
+    \definecolor{codegreen}{rgb}{0,0.6,0}%
+    \definecolor{codegray}{rgb}{0.5,0.5,0.5}%
+    \definecolor{codepurple}{rgb}{0.58,0,0.82}%
+    \definecolor{backcolour}{rgb}{0.95,0.95,0.92}%
+    \definecolor{fosapblue}{RGB}{0,128,255}%
+    \definecolor{fosappink}{RGB}{252,163,212}%
 }
 
 % ------ Metadata ------ %
@@ -55,6 +61,7 @@
 \newcommand{\@assignment}{}
 \def \teamname{\,}
 \newcommand{\team}[1]{\def \teamname{#1}}
+
 % ------ Group Roster Table ------- %
 
 % Path to CSV
@@ -120,8 +127,6 @@
 % Drawing Finite Automata
 \newcommand{\tikzfosap}{%
     \usetikzlibrary{automata, positioning, arrows, shapes.geometric}%
-    \definecolor{fosapblue}{RGB}{0,128,255}%
-    \definecolor{fosappink}{RGB}{252,163,212}%
     \tikzset{%
         ->, % gerichtete Kanten
         >=stealth, % dicke Pfeile
@@ -136,10 +141,6 @@
 
 % lstlistings style
 \newcommand{\codestyle}{%
-    \definecolor{codegreen}{rgb}{0,0.6,0}%
-    \definecolor{codegray}{rgb}{0.5,0.5,0.5}%
-    \definecolor{codepurple}{rgb}{0.58,0,0.82}%
-    \definecolor{backcolour}{rgb}{0.95,0.95,0.92}%
     \lstdefinestyle{krnz_code}{%
         backgroundcolor=\color{backcolour},%
         commentstyle=\color{codegreen},%
