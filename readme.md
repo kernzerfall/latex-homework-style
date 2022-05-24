@@ -10,6 +10,14 @@ Because I love LaTeX but I hate having to write the same things every time
 ```latex
 \documentclass[a4paper]{scrartcl} % AFAIK my theme only supports `scrartcl`
 
+% Include the theme (you only need the .sty file)
+\usepackage{kernzerfall_hw}
+
+% Inject boilerplate code
+% Include \usepackage directives (see below)
+%   and colour definitions
+\boilerplate
+
 % These three are used for \maketitle, make sure to set them
 \class{<class name>}
 \group{<group name>}
@@ -23,10 +31,6 @@ Because I love LaTeX but I hate having to write the same things every time
 
 % Other options you may want to set
 \date{\today}
-
-% Include the theme (you only need the .sty file)
-% Do this *last*
-\usepackage{kernzerfall_hw}
 ```
 
 ### Setting the Group Roster
@@ -62,29 +66,46 @@ Name3, ID3
 |`\ds`| 1 | Inserts its argument in double spaces (`\,\,~#1~\,\,`)|
 
 
-## Notice
+## Package Requirements
 
-I intentionally abused `RequiresPackage` statements in my .sty to keep the boilerplate light. If something breaks or you need to modify an included package look there.
+These are automatically included via `\RequirePackage`.
 
-**Included Packages**
+* hyperref (with `hidelinks`)
+* csvsimple
+* bookmark
 
-1. Actual requirements
-    * hyperref
-    * csvsimple
-    * bookmark
-2. Geometry
+## Boilerplate
+
+These are injected via `\boilerplate`
+
+### Packages
+
+1. Geometry
     * geometry (with `a4paper, top=2cm, left=2cm, right=2cm`)
-3. Math symbols
+2. Math symbols
     * amsmath
     * amssymb
     * mathtools
     * microtype
     * stmaryrd
-4. Graphics
+3. Graphics
     * tikz
     * graphicx
     * pdfpages
-5. Fonts/Encoding
+4. Fonts/Encoding
     * lmodern
     * inputenc (with `utf8`)
     * fontenc (with `T1`)
+5. Code listings
+    * lstlistings
+
+### Colors
+
+```js
+ codegreen: rgb(0,      0.6,    0)
+  codegray: rgb(0.5,    0.5,    0.5)
+codepurple: rgb(0.58,   0,      0.82)
+backcolour: rgb(0.95,   0.95,   0.92)
+ fosapblue: RGB(0,      128,    255)
+ fosappink: RGB(252,    163,    212)
+```
