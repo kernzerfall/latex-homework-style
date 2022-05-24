@@ -274,3 +274,8 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
+
+
+# release directories
+kernzerfall_hw/
+build/
