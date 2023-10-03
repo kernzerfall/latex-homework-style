@@ -123,6 +123,22 @@
 \newcommand{\calA}{\ensuremath{\mathcal A}}
 \newcommand{\calB}{\ensuremath{\mathcal B}}
 
+% Logic - Common Structures
+\newcommand{\fA}{\ensuremath{\mathfrak A}}
+\newcommand{\fB}{\ensuremath{\mathfrak B}}
+\newcommand{\fI}{\ensuremath{\mathfrak I}}
+
+% Logic - Operators
+\newcommand{\xor}{\ensuremath{\oplus}} 
+\newcommand{\impl}{\ensuremath{\rightarrow}}
+
+% Logic - Interpretation
+\newcommand{\intp}[2]{%
+    \ensuremath{%
+        \left\llbracket{#2}\right\rrbracket^{\mathfrak{#1}}
+    }%
+}
+
 % Drawing Finite Automata
 \newcommand{\tikzfosap}{%
     \usetikzlibrary{automata, positioning, arrows, shapes.geometric}%
