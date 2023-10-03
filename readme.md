@@ -52,11 +52,14 @@ Name3, ID3
 * Automatic setting of `hyperref` options (using `\maketitle`)
 * Automatic population of a group roster table using a simple `.csv` file
 * `\maketitle` (first page header) style
-* Shorthand commands for ℕ, ℤ, ℝ, ℂ (`\N`, `\Z`, `\R`, `\C`)  
+* Shorthand commands for:
+    * ℕ, ℤ, ℝ, ℂ (`\N`, `\Z`, `\R`, `\C`)
+    * 𝔄, 𝔅, ℑ, ℜ (`\fA`, `\fB`, `\I`, `\R`)
 
 ### Commands
 |Command|Parameters|Description|
 |--|--|--|
+|`\githash`|none| (Only LuaTeX!) Prints the short git commit hash. |
 |`\maketitle`| none| Generates a header using the values of `\class`, `\assignment` and `\group`. Sets the following `hyperref` properties: `pdftitle`, `pdfauthor`, `pdfsubject`.|
 |`\makegrouproster`|none| Generates a Group Roster Table using the values found in a `.csv` file.|
 |`\usegroupcsv`| path to csv| Overrides the default path for the Group's `.csv`.|
@@ -94,10 +97,10 @@ These are injected via `\boilerplate`
     * pdfpages
 4. Fonts/Encoding
     * lmodern
+    * luainputenc (with `utf8`)
     * inputenc (with `utf8`)
     * fontenc (with `T1`)
-5. Code listings
-    * lstlistings
+    * babel (with `english, ngerman`)
 
 ### Colors
 
