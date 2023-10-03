@@ -139,6 +139,13 @@
     }%
 }
 
+% Inject short git commit hash (only LuaTeX!)
+\newcommand{\githash}{%
+    \directlua{%
+        tex.print(io.popen"git rev-parse --short HEAD":read'*l')%
+    }%
+}
+
 % Drawing Finite Automata
 \newcommand{\tikzfosap}{%
     \usetikzlibrary{automata, positioning, arrows, shapes.geometric}%
