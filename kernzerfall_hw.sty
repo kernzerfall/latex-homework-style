@@ -83,27 +83,31 @@
 }
 
 % ------ Maketitle ------ %
-\renewcommand{\maketitle}%
-{%
-    \title{\assignment}%
-    \if \teamname {\,}%
-        \author{\group}%
-    \else%
-        \author{\group~-~\teamname}%
-    \fi%
-    \subject{\class}%
-    \hypersetup{%
-        pdftitle={\@title},
-        pdfauthor={\@author},
-        pdfsubject={\@subject}
+\ifdefined \nocustommaketitle%
+{}%
+\else%
+    \renewcommand{\maketitle}%
+    {%
+        \title{\assignment}%
+        \if \teamname {\,}%
+            \author{\group}%
+        \else%
+            \author{\group~-~\teamname}%
+        \fi%
+        \subject{\class}%
+        \hypersetup{%
+            pdftitle={\@title},
+            pdfauthor={\@author},
+            pdfsubject={\@subject}
+        }%
+        \begin{center}%
+            \titlefont%
+            \large{\class\hfill\group} \\
+            \normalsize{\assignment\hfill\teamname}\\
+            \normalfont%
+        \end{center}%
     }%
-    \begin{center}%
-        \titlefont%
-        \large{\class\hfill\group} \\
-        \normalsize{\assignment\hfill\teamname}\\
-        \normalfont%
-    \end{center}%
-}
+\fi
 
 % ------ Little things to make my life easier ------ %
 \newcommand{\sothat}{\,\,|\,\,}
