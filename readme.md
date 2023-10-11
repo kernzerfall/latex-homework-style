@@ -54,7 +54,8 @@ Name3, ID3
 * `\maketitle` (first page header) style
 * Shorthand commands for:
     * ℕ, ℤ, ℝ, ℂ (`\N`, `\Z`, `\R`, `\C`)
-    * 𝔄, 𝔅, ℑ, ℜ (`\fA`, `\fB`, `\I`, `\R`)
+    * 𝔄, 𝔅, ℑ, ℜ (`\fA`, `\fB`, `\I`, `\RR`)
+    * Complexity/Computability stuff (Classes, States, etc.)
 
 ### Commands
 |Command|Parameters|Description|
@@ -67,6 +68,7 @@ Name3, ID3
 |`\codestyle`|none| Injects an lstlistings style for code listings|
 |`\sothat`|none|Inserts `\,\,\|\,\,`. Useful for set declarations.|
 |`\ds`| 1 | Inserts its argument in double spaces (`\,\,~#1~\,\,`)|
+|`\fpmarks`|none| Adds DIN 5008 (Type A) punchhole/fold marks. Needs `scrlayer-scrpage`|
 
 
 ## Package Requirements
@@ -101,6 +103,11 @@ These are injected via `\boilerplate`
     * inputenc (with `utf8`)
     * fontenc (with `T1`)
     * babel (with `english, ngerman`)
+    * tgpagella (<- the template defaults to this font!)
+5. Misc
+    * draftwatermark
+    * xcolor
+    * scrlayer-scrpage
 
 ### Colors
 
