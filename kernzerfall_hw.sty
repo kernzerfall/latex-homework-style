@@ -294,16 +294,16 @@
 }
 
 % Folding and Punchhole marks according to DIN 5008 (Type A, A4)
-\newcommand{\fpmarks}{
-    \newcommand\foldmarklength{3mm}
-    \newcommand\punchmarklength{4mm}
-    \newcommand\markhpos{3.5mm}
-    \newcommand\markthickness{.2mm}
+\newcommand\foldmarklength{3mm}
+\newcommand\punchmarklength{4mm}
+\newcommand\markhpos{3.5mm}
+\newcommand\markthickness{.2mm}
+\newcommand\leftmarkline[1]{%
+    \parbox[c][\layerheight][b]{\layerwidth}{%
+        \hspace*{\markhpos}\rule{#1}{\markthickness}%
+}}
+\newcommand{\fpmarks}[0]{
 
-    \newcommand\leftmarkline[1]{%
-        \parbox[c][\layerheight][b]{\layerwidth}{%
-            \hspace*{\markhpos}\rule{#1}{\markthickness}%
-    }}
     \DeclareNewLayer[{
         background,
         innermargin,
