@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%- kernzerfall's LaTeX Theme for Homework -%%%%
 %%%%-                                        -%%%%
-%%%%- Revision: R8-11.10.2023                -%%%%
+%%%%- Revision: R9-13.10.2023                -%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ------ Requirements ------ %
@@ -10,6 +10,7 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{csvsimple}
 \RequirePackage{bookmark}
+\RequirePackage{iftex}
 
 % ------ Inject boilerplate ------ %
 
@@ -20,6 +21,7 @@
     % Math Symbols
     \usepackage{amsmath}
     \usepackage{amssymb}
+    \usepackage{amsthm}
     \usepackage{mathtools}
     \usepackage{microtype}
     \usepackage{stmaryrd}
@@ -35,11 +37,14 @@
     \usepackage[utf8]{luainputenc}
     \usepackage[T1]{fontenc}
     \usepackage[english, ngerman]{babel}
-
-    \usepackage{scrlayer-scrpage}
-    \usepackage{draftwatermark}
     \usepackage{xcolor}
     \usepackage{tgpagella}
+
+    % Other
+    \usepackage{scrlayer-scrpage}
+    \usepackage{draftwatermark}
+    \usepackage{cleveref}
+    \usepackage{framed}
 
     % Colors
     \definecolor{codegreen}{rgb}{0,0.6,0}%
@@ -48,6 +53,21 @@
     \definecolor{backcolour}{rgb}{0.95,0.95,0.92}%
     \definecolor{fosapblue}{RGB}{0,128,255}%
     \definecolor{fosappink}{RGB}{252,163,212}%
+
+    % def/thm numbering
+    \theoremstyle{definition}
+
+    \newtheorem{definition}{Definition}
+    \numberwithin{definition}{section}
+
+    \newtheorem{thm}{Theorem}
+    \numberwithin{thm}{section}
+
+    \newtheorem{satz}{Satz}
+    \numberwithin{satz}{section}
+
+    \newtheorem{lemma}{Lemma}
+    \numberwithin{lemma}{section}
 }
 
 % ------ Metadata ------ %
@@ -189,6 +209,7 @@
 \newcommand{\qinit}{\ensuremath{q_{\text{init}}}}
 
 % ------ LuaTeX stuff ------ %
+\ifLuaTeX
 
 % Inject short git commit hash
 \newcommand{\githash}{%
@@ -196,6 +217,38 @@
         tex.print(io.popen"git rev-parse --short HEAD":read'*l')%
     }%
 }
+
+% Queries the dirty status of the current project
+\directlua{%
+    function get_dirty()
+        local status = io.popen"git status --porcelain":read'*l'
+        return not (status == nil or status == '')
+    end
+
+    dirty = get_dirty()
+}%
+
+% Prints dirty status as 1/0
+\newcommand{\dirty}[0]{%
+    \protect\directlua{%
+        if dirty then
+            tex.print("1")
+        else
+            tex.print("0")
+        end
+    }%
+}
+
+% Prints "+" if dirty, otherwise nothing
+\newcommand{\dirtyplus}{%
+    \protect\directlua{%
+        if dirty then
+            tex.print("+")
+        end
+    }%
+}
+
+\fi % \ifLuaTeX ------------ %
 
 % Drawing Finite Automata
 \newcommand{\tikzfosap}{%

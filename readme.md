@@ -56,6 +56,7 @@ Name3, ID3
     * ℕ, ℤ, ℝ, ℂ (`\N`, `\Z`, `\R`, `\C`)
     * 𝔄, 𝔅, ℑ, ℜ (`\fA`, `\fB`, `\I`, `\RR`)
     * Complexity/Computability stuff (Classes, States, etc.)
+* Print git info (hash+dirty) on the PDF (only LuaTeX!).
 
 ### Commands
 |Command|Parameters|Description|
@@ -78,6 +79,7 @@ These are automatically included via `\RequirePackage`.
 * hyperref (with `hidelinks`)
 * csvsimple
 * bookmark
+* iftex
 
 ## Boilerplate
 
@@ -90,6 +92,7 @@ These are injected via `\boilerplate`
 2. Math symbols
     * amsmath
     * amssymb
+    * amsthm
     * mathtools
     * microtype
     * stmaryrd
@@ -108,6 +111,8 @@ These are injected via `\boilerplate`
     * draftwatermark
     * xcolor
     * scrlayer-scrpage
+    * cleveref
+    * framed
 
 ### Colors
 
