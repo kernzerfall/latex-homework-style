@@ -68,6 +68,11 @@
 
     \newtheorem{lemma}{Lemma}
     \numberwithin{lemma}{section}
+
+    % Default to no watermark, user can override this using the same command
+    \DraftwatermarkOptions{
+        scale=0, text={}
+    }
 }
 
 % ------ Metadata ------ %
@@ -289,7 +294,7 @@
 }
 
 % Folding and Punchhole marks according to DIN 5008 (Type A, A4)
-\newcommand{\fpmarks}{
+\newcommand{\fpmarksio}{
     \newcommand\foldmarklength{3mm}
     \newcommand\punchmarklength{4mm}
     \newcommand\markhpos{3.5mm}
