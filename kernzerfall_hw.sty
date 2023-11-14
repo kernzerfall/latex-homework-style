@@ -177,11 +177,26 @@
 \newcommand{\xor}{\ensuremath{\oplus}}
 \newcommand{\impl}{\ensuremath{\rightarrow}}
 
+% Set theory stuff
+\newcommand{\acc}[1]{\ensuremath{\operatorname{acc}\left({#1}\right) }}
+
 % Logic - Interpretation
 \newcommand{\intp}[2]{%
     \ensuremath{%
         \left\llbracket{#2}\right\rrbracket^{\mathfrak{#1}}
     }%
+}
+
+% Logic - Function stuff
+
+% Bijective twohead hook right arrow
+\newcommand{\bij}{%
+  \hookrightarrow\mathrel{\mspace{-15mu}}\rightarrow
+}
+
+% Injective
+\newcommand{\inj}{%
+  \hookrightarrow
 }
 
 % ------ Complexity Stuff ------ %
