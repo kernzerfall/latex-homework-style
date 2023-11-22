@@ -57,20 +57,11 @@
     % def/thm numbering
     \theoremstyle{definition}
 
-    \newtheorem{definition}{Definition}
-    \numberwithin{definition}{section}
-
-    \newtheorem{thm}{Theorem}
-    \numberwithin{thm}{section}
-
-    \newtheorem{satz}{Satz}
-    \numberwithin{satz}{section}
-
-    \newtheorem{lemma}{Lemma}
-    \numberwithin{lemma}{section}
-
-    \newtheorem{kor}{Korollar}
-    \numberwithin{kor}{section}
+    \newtheorem{definition}{Definition}[section]    
+    \newtheorem{thm}[definition]{Theorem}    
+    \newtheorem{satz}[definition]{Satz}
+    \newtheorem{lemma}[definition]{Lemma}
+    \newtheorem{kor}[definition]{Korollar}
 
     % Default to no watermark, user can override this using the same command
     \DraftwatermarkOptions{
