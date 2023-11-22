@@ -21,7 +21,8 @@
     % Math Symbols
     \usepackage{amsmath}
     \usepackage{amssymb}
-    \usepackage{amsthm}
+    %\usepackage{amsthm}
+    \usepackage[amsmath, amsthm, thmmarks]{ntheorem}
     \usepackage{mathtools}
     \usepackage{microtype}
     \usepackage{stmaryrd}
@@ -57,6 +58,7 @@
     % def/thm numbering
     \theoremstyle{definition}
 
+    \theoremsymbol{\ensuremath{\triangle}}
     \newtheorem{definition}{Definition}[section]    
     \newtheorem{thm}[definition]{Theorem}    
     \newtheorem{satz}[definition]{Satz}
