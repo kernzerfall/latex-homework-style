@@ -56,9 +56,21 @@
     \definecolor{fosappink}{RGB}{252,163,212}%
 
     % def/thm numbering
-    \theoremstyle{definition}
-
+    \theoremheaderfont{\normalfont\bfseries}
+    \theorembodyfont{\normalfont}
+    \theoremseparator{.}
+    \newtheoremstyle{kzflthm}%
+        {\item[%
+            \hskip\labelsep\theorem@headerfont% 
+                ####1~####2%
+            \theorem@separator]}%
+        {\item[%
+            \hskip\labelsep\theorem@headerfont%
+                ####1~####2~~\normalfont(####3)%
+            \theorem@separator]}
+    \theoremstyle{kzflthm}
     \theoremsymbol{\ensuremath{\triangle}}
+    
     \newtheorem{definition}{Definition}[section]    
     \newtheorem{thm}[definition]{Theorem}    
     \newtheorem{satz}[definition]{Satz}
