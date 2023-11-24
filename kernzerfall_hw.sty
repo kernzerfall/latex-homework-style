@@ -13,7 +13,6 @@
 \RequirePackage{iftex}
 
 % ------ Inject boilerplate ------ %
-
 \newcommand{\boilerplate}{
     % Geometry
     \usepackage[a4paper, top=2cm, left=2cm, right=2cm]{geometry}
@@ -21,8 +20,6 @@
     % Math Symbols
     \usepackage{amsmath}
     \usepackage{amssymb}
-    %\usepackage{amsthm}
-    \usepackage[amsmath, amsthm, thmmarks]{ntheorem}
     \usepackage{mathtools}
     \usepackage{microtype}
     \usepackage{stmaryrd}
@@ -55,40 +52,51 @@
     \definecolor{fosapblue}{RGB}{0,128,255}%
     \definecolor{fosappink}{RGB}{252,163,212}%
 
-    % def/thm numbering
-    \theoremheaderfont{\normalfont\bfseries}
-    \theorembodyfont{\normalfont}
-    \theoremseparator{.}
-    \newtheoremstyle{kzflthm}%
-        {\item[%
-            \hskip\labelsep\theorem@headerfont% 
-                ####1~####2%
-            \theorem@separator]}%
-        {\item[%
-            \hskip\labelsep\theorem@headerfont%
-                ####1~####2~~\normalfont(####3)%
-            \theorem@separator]}
-    \theoremstyle{kzflthm}
-    \theoremsymbol{\ensuremath{\triangle}}
-    
-    \newtheorem{definition}{Definition}[section]    
-    \newtheorem{thm}[definition]{Theorem}    
-    \newtheorem{satz}[definition]{Satz}
-    \newtheorem{lemma}[definition]{Lemma}
-    \newtheorem{kor}[definition]{Korollar}
-
     % Default to no watermark, user can override this using the same command
     \DraftwatermarkOptions{
         scale=0, text={}
     }
 
+    % KOMA classes have sf fonts in headers by default...
+    \ifdef\chapter{
+        \setkomafont{chapter}{\normalfont\huge\bfseries}
+        \setkomafont{section}{\normalfont\LARGE\bfseries}
+    }{    
+        \setkomafont{section}{\normalfont\Large\bfseries}
+    }
+
     \setkomafont{title}{\normalfont\huge}
-    \setkomafont{chapter}{\normalfont\huge\bfseries}
-    \setkomafont{section}{\normalfont\LARGE\bfseries}
     \setkomafont{subsection}{\normalfont\Large\bfseries}
     \setkomafont{subsubsection}{\normalfont\Large\bfseries}
     \setkomafont{paragraph}{\normalfont\bfseries}
     \setkomafont{subparagraph}{\normalfont\bfseries}
+}
+
+% ------ Therorem stuff ------ %
+\DeclareOption{thm}{
+    \RequirePackage[amsmath, amsthm, thmmarks]{ntheorem}
+    
+    % def/thm numbering
+        \theoremheaderfont{\normalfont\bfseries}
+        \theorembodyfont{\normalfont}
+        \theoremseparator{.}
+        \newtheoremstyle{kzflthm}%
+            {\item[%
+                \hskip\labelsep\theorem@headerfont% 
+                    ####1~####2%
+                \theorem@separator]}%
+            {\item[%
+                \hskip\labelsep\theorem@headerfont%
+                    ####1~####2~~\normalfont(####3)%
+                \theorem@separator]}
+        \theoremstyle{kzflthm}
+        \theoremsymbol{\ensuremath{\triangle}}
+    
+        \newtheorem{definition}{Definition}[section]    
+        \newtheorem{thm}[definition]{Theorem}    
+        \newtheorem{satz}[definition]{Satz}
+        \newtheorem{lemma}[definition]{Lemma}
+        \newtheorem{kor}[definition]{Korollar}
 }
 
 % ------ Metadata ------ %
@@ -129,9 +137,7 @@
 }
 
 % ------ Maketitle ------ %
-\ifdefined \nocustommaketitle%
-{}%
-\else%
+\DeclareOption{customtitle}{
     \renewcommand{\maketitle}%
     {%
         \title{\assignment}%
@@ -153,7 +159,7 @@
             \normalfont%
         \end{center}%
     }%
-\fi
+}
 
 % ------ Little things to make my life easier ------ %
 
@@ -216,49 +222,50 @@
 }
 
 % ------ Complexity Stuff ------ %
+\DeclareOption{complexity}{
+    % Ex(ists configuration) path
+    \newcommand{\expath}{\ensuremath{\stackrel\ast\to}}
 
-% Ex(ists configuration) path
-\newcommand{\expath}{\ensuremath{\stackrel\ast\to}}
+    % Common Alphabet syms
+    \newcommand{\sast}{\ensuremath{\Sigma^\ast}}
+    \newcommand{\gast}{\ensuremath{\Gamma^\ast}}
+    \newcommand{\gk}[1]{\ensuremath{\Gamma^{#1}}}
 
-% Common Alphabet syms
-\newcommand{\sast}{\ensuremath{\Sigma^\ast}}
-\newcommand{\gast}{\ensuremath{\Gamma^\ast}}
-\newcommand{\gk}[1]{\ensuremath{\Gamma^{#1}}}
+    % Configuration stuff
+    \newcommand{\kinit}{\ensuremath{\kappa_{\text{init}}}}
 
-% Configuration stuff
-\newcommand{\kinit}{\ensuremath{\kappa_{\text{init}}}}
+    % Markers (mend = end marker, blk = blank)
+    \newcommand{\mend}{\ensuremath{\triangleright}}
+    \newcommand{\blk}{\ensuremath{\square}}
 
-% Markers (mend = end marker, blk = blank)
-\newcommand{\mend}{\ensuremath{\triangleright}}
-\newcommand{\blk}{\ensuremath{\square}}
+    % Classes
+    \newcommand{\classO}[1]{\ensuremath{\mathcal{O}\left({#1}\right)}}
+    \newcommand{\classDT}[1]{\ensuremath{\mathsf{DTIME}\left({#1}\right)}}
+    \newcommand{\classP}{\ensuremath{\mathsf{P}}}
+    \newcommand{\classE}{\ensuremath{\mathsf{E}}}
+    \newcommand{\classEXPTIME}{\ensuremath{\mathsf{EXPTIME}}}
+    \newcommand{\classNT}[1]{\ensuremath{\mathsf{NTIME}\left({#1}\right)}}
+    \newcommand{\classNP}{\ensuremath{\mathsf{NP}}}
+    \newcommand{\classNEXP}{\ensuremath{\mathsf{NEXP}}}
+    \newcommand{\classEXP}{\ensuremath{\mathsf{EXP}}}
+    \newcommand{\classPpoly}{\ensuremath{%
+    	\classP\!/_{\!\mathsf{poly}}%
+    }}
+    \newcommand{\coclass}[1]{\ensuremath{%
+    	\mathsf{co}\text{-}{#1}%
+    }}
+    \newcommand{\classPHsigma}[1]{\ensuremath{
+    	\mathsf{\Sigma}^p_{#1}%
+    }}
+    \newcommand{\classPHpi}[1]{\ensuremath{
+    	\mathsf{\Pi}^p_{#1}%
+    }}
 
-% Classes
-\newcommand{\classO}[1]{\ensuremath{\mathcal{O}\left({#1}\right)}}
-\newcommand{\classDT}[1]{\ensuremath{\mathsf{DTIME}\left({#1}\right)}}
-\newcommand{\classP}{\ensuremath{\mathsf{P}}}
-\newcommand{\classE}{\ensuremath{\mathsf{E}}}
-\newcommand{\classEXPTIME}{\ensuremath{\mathsf{EXPTIME}}}
-\newcommand{\classNT}[1]{\ensuremath{\mathsf{NTIME}\left({#1}\right)}}
-\newcommand{\classNP}{\ensuremath{\mathsf{NP}}}
-\newcommand{\classNEXP}{\ensuremath{\mathsf{NEXP}}}
-\newcommand{\classEXP}{\ensuremath{\mathsf{EXP}}}
-\newcommand{\classPpoly}{\ensuremath{%
-	\classP\!/_{\!\mathsf{poly}}%
-}}
-\newcommand{\coclass}[1]{\ensuremath{%
-	\mathsf{co}\text{-}{#1}%
-}}
-\newcommand{\classPHsigma}[1]{\ensuremath{
-	\mathsf{\Sigma}^p_{#1}%
-}}
-\newcommand{\classPHpi}[1]{\ensuremath{
-	\mathsf{\Pi}^p_{#1}%
-}}
-
-% Common states
-\newcommand{\qacc}{\ensuremath{q_{+}}}
-\newcommand{\qrej}{\ensuremath{q_{-}}}
-\newcommand{\qinit}{\ensuremath{q_{\text{init}}}}
+    % Common states
+    \newcommand{\qacc}{\ensuremath{q_{+}}}
+    \newcommand{\qrej}{\ensuremath{q_{-}}}
+    \newcommand{\qinit}{\ensuremath{q_{\text{init}}}}
+}
 
 % ------ LuaTeX stuff ------ %
 \ifLuaTeX
@@ -340,32 +347,36 @@
     \lstset{style=krnz_code}%
 }
 
+\DeclareOption{fpmarks}{
 % Folding and Punchhole marks according to DIN 5008 (Type A, A4)
-\newcommand\foldmarklength{3mm}
-\newcommand\punchmarklength{4mm}
-\newcommand\markhpos{3.5mm}
-\newcommand\markthickness{.2mm}
-\newcommand\leftmarkline[1]{%
-    \parbox[c][\layerheight][b]{\layerwidth}{%
-        \hspace*{\markhpos}\rule{#1}{\markthickness}%
-}}
-\newcommand{\fpmarks}[0]{
+    \newcommand\foldmarklength{3mm}
+    \newcommand\punchmarklength{4mm}
+    \newcommand\markhpos{3.5mm}
+    \newcommand\markthickness{.2mm}
+    \newcommand\leftmarkline[1]{%
+        \parbox[c][\layerheight][b]{\layerwidth}{%
+            \hspace*{\markhpos}\rule{#1}{\markthickness}%
+    }}
+    \newcommand{\fpmarks}[0]{
 
-    \DeclareNewLayer[{
-        background,
-        innermargin,
-        oddpage,% in twoside mode only on odd pages!
-        height=87mm,
-        contents={\leftmarkline{3mm}}
-    }]{tfoldmark}
-    \DeclareNewLayer[{
-        clone=tfoldmark,
-        height=192mm
-    }]{bfoldmark}
-    \DeclareNewLayer[{
-        clone=tfoldmark,
-        height=0.5\pageheight,
-        contents={\leftmarkline{4mm}}
-    }]{punchmark}
-    \AddLayersToPageStyle{@everystyle@}{tfoldmark,bfoldmark,punchmark}
+        \DeclareNewLayer[{
+            background,
+            innermargin,
+            oddpage,% in twoside mode only on odd pages!
+            height=87mm,
+            contents={\leftmarkline{3mm}}
+        }]{tfoldmark}
+        \DeclareNewLayer[{
+            clone=tfoldmark,
+            height=192mm
+        }]{bfoldmark}
+        \DeclareNewLayer[{
+            clone=tfoldmark,
+            height=0.5\pageheight,
+            contents={\leftmarkline{4mm}}
+        }]{punchmark}
+        \AddLayersToPageStyle{@everystyle@}{tfoldmark,bfoldmark,punchmark}
+    }
 }
+
+\ProcessOptions\relax
