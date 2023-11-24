@@ -2,7 +2,7 @@
 
 % Include style/config
 % Always do this last!
-\usepackage{kernzerfall_hw}
+\usepackage[customtitle, boilerplate, thm, complexity]{kernzerfall_hw}
 \input{kernzerfall_hw.tex}
 
 % TikZ commands come after
@@ -15,6 +15,22 @@
     \[
         \int_{-\infty}^{\infty} e^{-r^2}dr = \sqrt\pi
     \]
+
+    \begin{definition}[Example DFN]
+        This is an example definition using \texttt{$\backslash$theorems}.
+    \end{definition}
+
+    \begin{thm}[Example Thm]
+        This is an example thm using \texttt{$\backslash$theorems}.
+    
+        \[
+            \classNP \subset \classPpoly \implies \classPH = \classPHsigma{2}
+        \]
+        \begin{proof}
+            Trivial. (not really)
+        \end{proof}
+    \end{thm}
+
 
     \newpage
     \maketitle
