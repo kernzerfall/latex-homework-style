@@ -12,10 +12,17 @@
 \RequirePackage{bookmark}
 \RequirePackage{iftex}
 
+% Injection of boilerplate, is also toggled as a dependency
+% of some other options
 \newif\if@kzflboilerplate
-\newif\if@kzflthm
-\newif\if@kzflenglish\@kzflenglishtrue
+\DeclareOption{boilerplate}{\@kzflboilerplatetrue}
 
+% Injection of theorem environments
+\newif\if@kzflthm
+\DeclareOption{thm}{\@kzflthmtrue}
+
+% Use english for tables, babel, etc
+\newif\if@kzflenglish\@kzflenglishtrue
 \DeclareOption{german}{\@kzflenglishfalse}
 
 \DeclareOption{boilerplate}{\@kzflboilerplatetrue}
@@ -87,7 +94,6 @@
 }
 
 % ------ Therorem stuff ------ %
-\DeclareOption{thm}{\@kzflthmtrue}
 \newcommand{\kzfl@injecttheorems}{
     % this heavily relies on the boilerplate
     \@kzflboilerplatetrue
