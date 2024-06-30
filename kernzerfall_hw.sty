@@ -1,12 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%- kernzerfall's LaTeX Theme for Homework -%%%%
 %%%%-                                        -%%%%
-%%%%- Revision: Rb-24.11.2023                -%%%%
+%%%%- Revision: Rc-12.04.2024                -%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ------ Requirements ------ %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{kernzerfall_hw}[kernzerfall's LaTeX theme for Homework]
+\ProvidesPackage{kernzerfall_hw}[2024/04/12 kernzerfall's LaTeX theme for Homework]
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{csvsimple}
 \RequirePackage{bookmark}
@@ -14,6 +14,9 @@
 
 \newif\if@kzflboilerplate
 \newif\if@kzflthm
+\newif\if@kzflenglish\@kzflenglishtrue
+
+\DeclareOption{german}{\@kzflenglishfalse}
 
 \DeclareOption{boilerplate}{\@kzflboilerplatetrue}
 % ------ Inject boilerplate ------ %
@@ -24,8 +27,8 @@
     % Math Symbols
     \usepackage{amsmath}
     \usepackage{amssymb}
-    \usepackage{mathtools}
-    \usepackage{microtype}
+    % \usepackage{mathtools}
+    % \usepackage{microtype}
     \usepackage{stmaryrd}
 
     % Graphics
@@ -34,13 +37,23 @@
     \usepackage{pdfpages}
 
     % Fonts/Encoding
-    \usepackage{lmodern}
-    \usepackage[utf8]{inputenc}
     \usepackage[utf8]{luainputenc}
-    \usepackage[T1]{fontenc}
-    \usepackage[english, ngerman]{babel}
+
+    \if@kzflenglish
+        \usepackage[british]{babel}
+    \else
+        \usepackage[british, ngerman]{babel}
+    \fi
+
     \usepackage{xcolor}
-    \usepackage{tgpagella}
+    \usepackage{fontspec}
+    \usepackage{unicode-math}
+
+    \setmainfont[Numbers=OldStyle]{TeX Gyre Pagella}
+    \setmathfont{TeX Gyre Pagella Math}
+    \setsansfont{New Computer Modern Sans 10}
+    \setmonofont{New Computer Modern Mono 10}
+
 
     % Other
     \usepackage{scrlayer-scrpage}
@@ -63,15 +76,15 @@
 
     % KOMA classes have sf fonts in headers by default...
     \ifdef\chapter{
-        \setkomafont{chapter}{\normalfont\huge\bfseries}
-        \setkomafont{section}{\normalfont\LARGE\bfseries}
-    }{    
-        \setkomafont{section}{\normalfont\Large\bfseries}
+        \setkomafont{chapter}{\normalfont\huge}
+        \setkomafont{section}{\normalfont\LARGE}
+    }{
+        \setkomafont{section}{\normalfont\Large}
     }
 
     \setkomafont{title}{\normalfont\huge}
-    \setkomafont{subsection}{\normalfont\Large\bfseries}
-    \setkomafont{subsubsection}{\normalfont\Large\bfseries}
+    \setkomafont{subsection}{\normalfont\Large}
+    \setkomafont{subsubsection}{\normalfont\large}
     \setkomafont{paragraph}{\normalfont\bfseries}
     \setkomafont{subparagraph}{\normalfont\bfseries}
 }
@@ -80,8 +93,8 @@
 \DeclareOption{thm}{\@kzflthmtrue}
 \newcommand{\kzfl@injecttheorems}{
     % this heavily relies on the boilerplate
-    \@kzflboilerplatetrue    
-    
+    \@kzflboilerplatetrue
+
     % def/thm numbering
     \usepackage[amsmath, amsthm, thmmarks]{ntheorem}
     \theoremheaderfont{\normalfont\bfseries}
@@ -89,7 +102,7 @@
     \theoremseparator{.}
     \newtheoremstyle{kzflthm}%
         {\item[%
-            \hskip\labelsep\theorem@headerfont% 
+            \hskip\labelsep\theorem@headerfont%
                 ####1~####2%
             \theorem@separator]}%
         {\item[%
@@ -99,8 +112,8 @@
     \theoremstyle{kzflthm}
     \theoremsymbol{\ensuremath{\triangle}}
 
-    \newtheorem{definition}{Definition}[section]    
-    \newtheorem{thm}[definition]{Theorem}    
+    \newtheorem{definition}{Definition}[section]
+    \newtheorem{thm}[definition]{Theorem}
     \newtheorem{satz}[definition]{Satz}
     \newtheorem{lemma}[definition]{Lemma}
     \newtheorem{kor}[definition]{Korollar}
@@ -108,19 +121,19 @@
 
 % ------ Metadata ------ %
 \AtBeginDocument{
-	\hypersetup{bookmarksnumbered=true,%
-	}
+    \hypersetup{bookmarksnumbered=true,%
+    }
 }
 
 % ------ Environment variables ------ %
-\newcommand{\group}[1]{\renewcommand{\group}{#1}}
-\newcommand{\@group}{}
+\newcommand{\semester}[1]{\renewcommand{\semester}{#1}}
+\newcommand{\@semester}{}
 \newcommand{\class}[1]{\renewcommand{\class}{#1}}
 \newcommand{\@class}{}
 \newcommand{\assignment}[1]{\renewcommand{\assignment}{#1}}
 \newcommand{\@assignment}{}
-\def \teamname{\,}
-\newcommand{\team}[1]{\def \teamname{#1}}
+\def \@titlemisc{\,}
+\newcommand{\titlemisc}[1]{\def\@titlemisc{#1}}
 
 % ------ Group Roster Table ------- %
 
@@ -130,16 +143,24 @@
 % Command to update csv path
 \newcommand{\usegroupcsv}[1]{\def \groupcsv{#1}}
 
+\if@kzflenglish
+    \def\@rosternames{First, Last Name}
+    \def\@rosterids{ID}
+\else
+    \def\@rosternames{Vor- und Nachname}
+    \def\@rosterids{Matrikelnummer}
+\fi
+
 \newcommand{\makegrouproster}{%
     \begin{center}%
-        \vspace{2em}%
+        \vspace{0.5\baselineskip}%
         \csvreader[tabular=|l|c|,%
-            table head=\hline\bfseries{Vor- und Nachname} & \bfseries{Matrikelnummer}\\\hline,%
+            table head=\hline\bfseries{\hfill\@rosternames\hfill} & \bfseries{\@rosterids}\\\hline,%
             late after line=\\,%
             late after last line=\\\hline%
         ]{\groupcsv}%
         {name=\name, matrnr=\matrnr}%
-        {\name & \matrnr}%
+        {\name & \texttt{\matrnr}}%
     \end{center}
 }
 
@@ -147,28 +168,29 @@
 \DeclareOption{customtitle}{
     \renewcommand{\maketitle}%
     {%
-        \title{\assignment}%
-        \if \teamname {\,}%
-            \author{\group}%
-        \else%
-            \author{\group~-~\teamname}%
-        \fi%
-        \subject{\class}%
+        \title{\class - \assignment}%
         \hypersetup{%
             pdftitle={\@title},
-            pdfauthor={\@author},
-            pdfsubject={\@subject}
         }%
         \begin{center}%
             \titlefont%
-            \large{\class\hfill\group} \\
-            \normalsize{\assignment\hfill\teamname}\\
+            \Large{\class\hfill\assignment} \\
+            \large{\semester\hfill\@titlemisc}\\
             \normalfont%
         \end{center}%
     }%
 }
 
 % ------ Little things to make my life easier ------ %
+
+% Exercise sect
+\if@kzflenglish
+    \newcommand{\@exercisetext}{Exercise}
+\else
+    \newcommand{\@exercisetext}{Aufgabe}
+\fi
+\newcommand{\exercise}[1]{\section*{\@exercisetext{} {#1}}}
+\newcommand{\subexercise}[1]{\paragraph*{({#1})}}
 
 % Better enumerations
 \renewcommand{\theenumi}{\roman{enumi}}
@@ -257,16 +279,16 @@
     \newcommand{\classEXP}{\ensuremath{\mathsf{EXP}}}
     \newcommand{\classPH}{\ensuremath{\mathsf{PH}}}
     \newcommand{\classPpoly}{\ensuremath{%
-    	\classP\!/_{\!\mathsf{poly}}%
+        \classP\!/_{\!\mathsf{poly}}%
     }}
     \newcommand{\coclass}[1]{\ensuremath{%
-    	\mathsf{co}\text{-}{#1}%
+        \mathsf{co}\text{-}{#1}%
     }}
     \newcommand{\classPHsigma}[1]{\ensuremath{
-    	\mathsf{\Sigma}^p_{#1}%
+        \mathsf{\Sigma}^p_{#1}%
     }}
     \newcommand{\classPHpi}[1]{\ensuremath{
-    	\mathsf{\Pi}^p_{#1}%
+        \mathsf{\Pi}^p_{#1}%
     }}
 
     % Common states
