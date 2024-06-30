@@ -25,7 +25,11 @@
 \newif\if@kzflenglish\@kzflenglishtrue
 \DeclareOption{german}{\@kzflenglishfalse}
 
-\DeclareOption{boilerplate}{\@kzflboilerplatetrue}
+% Use the _awesome_ Minion Pro typeface
+% Needs boilerplate, as it takes place in it
+\newif\if@kzflmpro\@kzflmprotrue
+\DeclareOption{minionpro}{\@kzflboilerplatetrue\@kzflmprotrue}
+
 % ------ Inject boilerplate ------ %
 \newcommand{\kzfl@injectboilerplate}{
     % Geometry
@@ -50,14 +54,40 @@
     \fi
 
     \usepackage{xcolor}
-    \usepackage{fontspec}
+    \usepackage[no-math]{fontspec}
     \usepackage{unicode-math}
 
-    \setmainfont[Numbers=OldStyle]{TeX Gyre Pagella}
+    \defaultfontfeatures{
+        Scale=MatchLowercase,
+    }
+
+    % Depending on if@mpro, switch to Minion Pro
+    \if@kzflmpro
+        \setmainfont[Numbers=OldStyle]{MinionPro}
+    \else
+        \setmainfont[Numbers=OldStyle]{TeX Gyre Pagella}
+    \fi
+
     \setmathfont{TeX Gyre Pagella Math}
+    % TGPagellaMath's mathcal letters are weird... Especially 'F'.
+    \setmathfont[range={scr,bfscr,cal,bfcal}]{New Computer Modern Math}
     \setsansfont{New Computer Modern Sans 10}
     \setmonofont{New Computer Modern Mono 10}
 
+    % If we're using Minion Pro, override some of TGPagella's Math symbols with it
+    % Fontspec is going to complain about Style=Math missing but it's fine
+    \if@kzflmpro
+        % 44 = Comma, the one from TGPagella looks different
+        \setmathfont[range={44}]{MinionPro}
+        % mathup = upright math characters (e.g. \operatorname, \mathrm)
+        \setmathfont[range=\mathup/{num,latin,Latin,greek,Greek}]{MinionPro}%
+        % mathit = normal/italic math characters
+        \setmathfont[range=\mathit/{num,latin,Latin,greek,Greek}]{MinionPro-Italic}%
+        % These would be needed for bold/boldit math, but they cause some errors and I don't feel
+        % like fixing them, especially as I don't even use bold math...
+        % \setmathfont[range=\mathbfup/{num,latin,Latin,greek,Greek}]{MinionPro-Bold}%
+        % \setmathfont[range=\mathbfit/{num,latin,Latin,greek,Greek}]{MinionPro-BoldItalic}%
+    \fi
 
     % Other
     \usepackage{scrlayer-scrpage}
