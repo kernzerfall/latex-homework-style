@@ -11,12 +11,7 @@ Because I love LaTeX but I hate having to write the same things every time
 \documentclass[a4paper]{scrartcl} % AFAIK my theme only supports `scrartcl`
 
 % Include the theme (you only need the .sty file)
-\usepackage{kernzerfall_hw}
-
-% Inject boilerplate code
-% Include \usepackage directives (see below)
-%   and colour definitions
-\boilerplate
+\usepackage[boilerplate, thm, customtitle]{kernzerfall_hw}
 
 % These three are used for \maketitle, make sure to set them
 \class{<class name>}
@@ -57,6 +52,13 @@ Name3, ID3
     * 𝔄, 𝔅, ℑ, ℜ (`\fA`, `\fB`, `\I`, `\RR`)
     * Complexity/Computability stuff (Classes, States, etc.)
 * Print git info (hash+dirty) on the PDF (only LuaTeX!).
+### Options
+|Option|Description|
+|--|--|
+|`boilerplate`|Boilerplate|
+|`thm`|Inject presets for theorem environments `definition`, `lemma`, `satz`, `thm`|
+|`complexity`|Macros for stuff like complexity classes, etc.|
+|`fpmarks`|Includes the `\fpmarks` command (see below)|
 
 ### Commands
 |Command|Parameters|Description|
