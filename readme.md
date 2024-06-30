@@ -56,6 +56,7 @@ Name3, ID3
 |Option|Description|
 |--|--|
 |`boilerplate`|Boilerplate|
+|`german`|Use german babel, headings in `\makegrouproster`, ... (default was recently made english!)|
 |`mpro`|Use the Minion Pro typeface (you must have this installed separately)|
 |`thm`|Inject presets for theorem environments `definition`, `lemma`, `satz`, `thm`|
 |`complexity`|Macros for stuff like complexity classes, etc.|
