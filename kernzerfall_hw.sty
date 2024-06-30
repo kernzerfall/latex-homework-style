@@ -94,6 +94,11 @@
     \usepackage{draftwatermark}
     \usepackage[capitalize]{cleveref}
     \usepackage{framed}
+    \if@kzflenglish
+        \usepackage[style=english]{csquotes}
+    \else
+        \usepackage[style=german]{csquotes}
+    \fi
 
     % Colors
     \definecolor{codegreen}{rgb}{0,0.6,0}%
