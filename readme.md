@@ -17,7 +17,7 @@ Because I love LaTeX but I hate having to write the same things every time
 \class{<class name>}
 \group{<group name>}
 \assignment{<assignment name>}
-\team{<opt - team name>} % optional
+\titlemisc{<opt - team name>} % optional
 
 % This is used for \makegrouproster, which is optional
 % Set it if you want to automatically generate a group table
@@ -25,7 +25,7 @@ Because I love LaTeX but I hate having to write the same things every time
 \usegroupcsv{group.csv}
 
 % Other options you may want to set
-\date{\today}
+\date{\bettertoday}
 ```
 
 ### Setting the Group Roster
@@ -56,6 +56,7 @@ Name3, ID3
 |Option|Description|
 |--|--|
 |`boilerplate`|Boilerplate|
+|`mpro`|Use the Minion Pro typeface (you must have this installed separately)|
 |`thm`|Inject presets for theorem environments `definition`, `lemma`, `satz`, `thm`|
 |`complexity`|Macros for stuff like complexity classes, etc.|
 |`fpmarks`|Includes the `\fpmarks` command (see below)|
