@@ -123,14 +123,14 @@
 }
 
 % ------ Environment variables ------ %
-\newcommand{\semester}[1]{\renewcommand{\semester}{#1}}
-\newcommand{\@semester}{}
-\newcommand{\class}[1]{\renewcommand{\class}{#1}}
-\newcommand{\@class}{}
-\newcommand{\assignment}[1]{\renewcommand{\assignment}{#1}}
-\newcommand{\@assignment}{}
-\def \@titlemisc{\,}
+\newcommand{\semester}[1]{\def\@semester{#1}}
+\def\@semester{}
+\newcommand{\class}[1]{\def\@class{#1}}
+\def\@class{}
+\newcommand{\assignment}[1]{\def\@assignment{#1}}
+\def\@assignment{}
 \newcommand{\titlemisc}[1]{\def\@titlemisc{#1}}
+\def\@titlemisc{\,}
 
 % ------ Group Roster Table ------- %
 
@@ -165,14 +165,14 @@
 \DeclareOption{customtitle}{
     \renewcommand{\maketitle}%
     {%
-        \title{\class - \assignment}%
+        \title{\@class{} - \@assignment}%
         \hypersetup{%
             pdftitle={\@title},
         }%
         \begin{center}%
             \titlefont%
-            \Large{\class\hfill\assignment} \\
-            \large{\semester\hfill\@titlemisc}\\
+            \Large{\@class\hfill\@assignment} \\
+            \large{\@semester\hfill\@titlemisc}\\
             \normalfont%
         \end{center}%
     }%
