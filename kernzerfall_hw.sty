@@ -122,6 +122,10 @@
     }
 }
 
+% A better \today macro with leading zeroes
+\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+\def\bettertoday{\leavevmode\hbox{\twodigits\day.\twodigits\month.\the\year}}
+
 % ------ Environment variables ------ %
 \newcommand{\semester}[1]{\def\@semester{#1}}
 \def\@semester{}
