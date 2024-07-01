@@ -51,6 +51,8 @@ Name3, ID3
     * ℕ, ℤ, ℝ, ℂ (`\N`, `\Z`, `\RR`, `\C`)
     * 𝔄, 𝔅, ℑ, ℜ (`\fA`, `\fB`, `\I`, `\R`)
     * Complexity/Computability stuff (Classes, States, etc.)
+    * Logic stuff (ops like `\lu`, `\levent`, `\lglob`, set theory stuff, and much more)
+      - This is the ONLY part that is _not_ hidden behind an option!
 * Print git info (hash+dirty) on the PDF (only LuaTeX!).
 ### Options
 |Option|Description|
@@ -61,6 +63,7 @@ Name3, ID3
 |`mpro`|Use the Minion Pro typeface (you must have this installed separately)|
 |`thm`|Inject presets for theorem environments `definition`, `lemma`, `satz`, `thm`|
 |`complexity`|Macros for stuff like complexity classes, etc.|
+|`markov`|Macros for path sets, successor sets, etc. in markov chains.|
 |`fpmarks`|Includes the `\fpmarks` command (see below)|
 
 ### Commands
