@@ -66,6 +66,11 @@
             ]{MinionPro}
         \usepackage{MnSymbol}
 
+        % LinBiolinum looks better than LMSS together with MPro
+        \renewcommand{\sfdefault}{LinBiolinumT-OsF}
+        \renewcommand{\sffamily}{\fontfamily{\sfdefault}\selectfont}
+        \DeclareMathAlphabet{\mathsf}{OT1}{\sfdefault}{m}{n}
+
         % Yoink some glyphs from AMSFonts, and Computer Modern
         \DeclareSymbolFont{AMSa}{U}{msa}{m}{n}
         \DeclareSymbolFont{lmsy}{OMS}{lmsy}{m}{n}
