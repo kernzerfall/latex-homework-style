@@ -116,7 +116,7 @@ These are injected via `\boilerplate`
     * babel (with `english, ngerman`)
     * newpxmath, newpxtext (<- the template defaults to this font!)
     * Optional: MinionPro & MnSymbol + LinuxBioline (sffamily),
-      - see [sebschub/FontPro](https://github.comsebschub/FontPro) for the MinionPro package
+      - see [sebschub/FontPro](https://github.com/sebschub/FontPro) for the MinionPro package
       - the typeface itself is non-free
 5. Misc
     * draftwatermark
