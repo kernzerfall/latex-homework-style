@@ -1,5 +1,4 @@
 # texbuilder Dockerfile for use with GitLab-CI
-
 FROM archlinux:latest
 
 # biber ends up in this weird path even though it's
@@ -10,9 +9,9 @@ ENV PATH="$PATH:/usr/bin/vendor_perl"
 # The perl stuff is needed for biber
 RUN pacman -Syu --noconfirm && \
 	pacman -S --noconfirm bash make git zip icu \
-	texlive texlive-lang texlive-meta \
-	python-pygments biber \
-	perl-xml-libxml perl-alien-libxml2 libxml2
+		texlive texlive-lang texlive-meta \
+		python-pygments biber \
+		perl-xml-libxml perl-alien-libxml2 libxml2
 
 #### Uncomment the following for Minion Pro support
 #### You need at least MinionPro-{Bold,BoldIt,It,Regular}.otf to use with
