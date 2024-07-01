@@ -48,8 +48,8 @@ Name3, ID3
 * Automatic population of a group roster table using a simple `.csv` file
 * `\maketitle` (first page header) style
 * Shorthand commands for:
-    * ℕ, ℤ, ℝ, ℂ (`\N`, `\Z`, `\R`, `\C`)
-    * 𝔄, 𝔅, ℑ, ℜ (`\fA`, `\fB`, `\I`, `\RR`)
+    * ℕ, ℤ, ℝ, ℂ (`\N`, `\Z`, `\RR`, `\C`)
+    * 𝔄, 𝔅, ℑ, ℜ (`\fA`, `\fB`, `\I`, `\R`)
     * Complexity/Computability stuff (Classes, States, etc.)
 * Print git info (hash+dirty) on the PDF (only LuaTeX!).
 ### Options
@@ -57,6 +57,7 @@ Name3, ID3
 |--|--|
 |`boilerplate`|Boilerplate|
 |`german`|Use german babel, headings in `\makegrouproster`, ... (default was recently made english!)|
+|`customtitle`|Uses `\class`, `\assignment`, etc. to override `\maketitle`|
 |`mpro`|Use the Minion Pro typeface (you must have this installed separately)|
 |`thm`|Inject presets for theorem environments `definition`, `lemma`, `satz`, `thm`|
 |`complexity`|Macros for stuff like complexity classes, etc.|
@@ -110,7 +111,10 @@ These are injected via `\boilerplate`
     * inputenc (with `utf8`)
     * fontenc (with `T1`)
     * babel (with `english, ngerman`)
-    * tgpagella (<- the template defaults to this font!)
+    * newpxmath, newpxtext (<- the template defaults to this font!)
+    * Optional: MinionPro & MnSymbol,
+      - see [sebschub/FontPro](https://github.comsebschub/FontPro) for the MinionPro package
+      - the typeface itself is non-free
 5. Misc
     * draftwatermark
     * xcolor
