@@ -230,6 +230,15 @@
 }
 
 % ------ Little things to make my life easier ------ %
+% Returns either the function name (#2) or function(#1) if called with the optional argument
+\newcommand{\functionorname}[2][]{
+    {\ensuremath{%
+        {\operatorname{\mathsf{#2}}}%
+        {\Ifstr{#1}{}{}{%
+            \left(#1\right)%
+        }}%
+    }}%
+}
 
 % Exercise sect
 \if@kzflenglish
@@ -265,6 +274,11 @@
 % Common mathcal letters
 \newcommand{\calA}{\ensuremath{\mathcal A}}
 \newcommand{\calB}{\ensuremath{\mathcal B}}
+\newcommand{\calM}{\ensuremath{\mathcal M}}
+\newcommand{\calD}{\ensuremath{\mathcal D}}
+\newcommand{\calP}{\ensuremath{\mathcal P}}
+
+% ------ All things logic ------ %
 
 % Logic - Common Structures and Fraktur Symbols
 \newcommand{\fA}{\ensuremath{\mathfrak A}}
@@ -296,6 +310,71 @@
 % Injective
 \newcommand{\inj}{%
   \hookrightarrow
+}
+
+% Logic - Modal stuff
+
+% Raw Logic Symbols
+\newcommand{\lusymbol}{\mathlmss{U}}
+\newcommand{\lnextsymbol}{\bigcirc}
+\newcommand{\leventuallysymbol}{\lozenge}
+\newcommand{\lgloballysymbol}{\square}
+\newcommand{\lprobsymbol}{\mathbb{P}}
+
+% Raw Logic Symbols
+\newcommand{\lusymbol}{\mathlmss{U}}
+\newcommand{\lnextsymbol}{\bigcirc}
+\newcommand{\leventuallysymbol}{\lozenge}
+\newcommand{\lgloballysymbol}{\square}
+\newcommand{\lprobsymbol}{\mathbb{P}}
+
+% Next/eventually/globally
+\newcommand{\lnext}{\ensuremath{\mathord{\lnextsymbol}}}
+\newcommand{\levent}{\ensuremath{\mathord{\leventuallysymbol}}}
+\newcommand{\leventn}[1]{\ensuremath{\levent^{\leq #1}}}
+\newcommand{\lglob}{\ensuremath{\mathord{\lgloballysymbol}}}
+
+% Next/eventually/globally
+\newcommand{\lnext}{\ensuremath{\mathord{\lnextsymbol}}}
+\newcommand{\levent}{\ensuremath{\mathord{\leventuallysymbol}}}
+\newcommand{\leventn}[1]{\ensuremath{\levent^{\leq #1}}}
+\newcommand{\lglob}{\ensuremath{\mathord{\lgloballysymbol}}}
+
+% Misc symbols
+\newcommand{\ltrue}{\texttt{true}}
+\newcommand{\lfalse}{\texttt{false}}
+\newcommand{\quant}{\mathfrak{Q}}
+
+% Set shortcuts
+\newcommand{\ap}{\ensuremath{\mathsf{AP}}}
+\newcommand{\act}{\ensuremath{\mathsf{Act}}}
+
+
+% Variables
+\newcommand{\var}[2][]{%
+    \expandafter\ensuremath{%
+        \expandafter\hat{#2}%
+            \Ifstr{#1}{}{}{_{#1}}%
+        }%
+    }%
+
+% Sequences
+\newcommand{\seq}[1]{\ensuremath{\overline{#1}}}
+% Sequences of variables
+\newcommand{\seqvar}[1]{\ensuremath{\var{\seq{#1}}}}
+
+% (Path) Traces
+\newcommand{\trace}{\ensuremath{\mathsf{trace}}}
+
+% Inserts [a]tomic [p]roposition (#2) [m]arked with a variable (#3) and optionally index [#1]
+% -> Not using an optarg would result int \var{a_b} which would make the hat a little lopsided
+%    and I can't live with that...
+\newcommand{\apm}[3][]{%
+    \ensuremath{%
+        {#2}_{%
+            \var[#1]{#3}
+        }%
+    }%
 }
 
 % ------ Complexity Stuff ------ %
@@ -344,6 +423,46 @@
     \newcommand{\qrej}{\ensuremath{q_{-}}}
     \newcommand{\qinit}{\ensuremath{q_{\text{init}}}}
 }
+
+% ------ Markov Chain and Decision Process Stuff ------ %
+\DeclareOption{markov}{
+    % Path sets
+    \newcommand{\pathssymbol}{%
+        \ensuremath{%
+            \mathsf{Paths}%
+        }%
+    }
+
+    % Set of all paths on (#2), optionally starting at [#1]
+    \newcommand{\paths}[2][]{%
+        \ensuremath{%
+            \pathssymbol_{#2}%
+            \Ifstr{#1}{}{}{\!\left(%
+                    {#1}%
+                \right)}%
+        }%
+    }
+
+    % Set of paths on (#2), optionally starting at (#1)
+    \newcommand{\pathsfin}[2][]{%
+        \ensuremath{%
+            \pathssymbol_{#2}^{<\omega}%
+            \Ifstr{#1}{}{}{\!\left(%
+                    {#1}%
+                \right)}%
+        }%
+    }
+
+    % Set of direct successors
+    \newcommand{\post}{\mathsf{Post}}
+
+    % Set of reachable states (indirect succesors via finite path fragment)
+    \newcommand{\postast}{\mathsf{Post}^{\ast}}
+
+    % The above as functions on (#1).
+    \newcommand{\fpost}[1]{\post_{#1}}
+    \newcommand{\fpostast}[1]{\postast\!\!_{#1}}
+ }
 
 % ------ LuaTeX stuff ------ %
 \ifLuaTeX
