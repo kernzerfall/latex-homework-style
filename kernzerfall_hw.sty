@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%- kernzerfall's LaTeX Theme for Homework -%%%%
 %%%%-                                        -%%%%
-%%%%- Revision: Re-01.07.2024                -%%%%
+%%%%- Revision: Rf-01.07.2024                -%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ------ Requirements ------ %
@@ -59,8 +59,26 @@
     \if@kzflmpro
         % Look at https://github.com/sebschub/FontPro to install this
         % The Minion Pro typeface itself needs to be licensed from Adobe
-        \usepackage[mathlf]{MinionPro}
+        \usepackage[
+            mathlf,    % lining figures (i.e. _not_ oldstyle) in math
+            swash,     % take cal letters from Minion Pro swash
+            openg,     % italic g is open
+            ]{MinionPro}
         \usepackage{MnSymbol}
+
+        % Yoink some glyphs from AMSFonts, and Computer Modern
+        \DeclareSymbolFont{AMSa}{U}{msa}{m}{n}
+        \DeclareSymbolFont{lmsy}{OMS}{lmsy}{m}{n}
+
+        % Square and lozenge from AMSFonts, the ones in MnSymbol are smol
+        \DeclareMathSymbol{\square}{\mathord}{AMSa}{"03}
+        \DeclareMathSymbol{\lozenge}{\mathord}{AMSa}{"06}
+
+        % Triangle from LModern, same reason as above
+        \DeclareMathSymbol{\triangle}{\mathord}{lmsy}{"34}
+
+        % mathsf from lmss
+        \DeclareMathAlphabet{\mathlmss}{\encodingdefault}{lmss}{m}{n}
     \else
         \usepackage{newpxtext}
         \usepackage{newpxmath}
