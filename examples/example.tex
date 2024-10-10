@@ -5,23 +5,21 @@
 \usepackage[customtitle, boilerplate, thm, complexity]{kernzerfall_hw}
 \input{kernzerfall_hw.tex}
 
-% TikZ commands come after
-
 \begin{document}
     \maketitle
     \subsection*{Exercise 1}
     \paragraph*{Question 1}
-        Example with $\backslash${}maketitle only
+        Example with \texttt{\string\maketitle} only
     \[
         \int_{-\infty}^{\infty} e^{-r^2}dr = \sqrt\pi
     \]
 
     \begin{definition}[Example DFN]
-        This is an example definition using \texttt{$\backslash$theorems}.
+        This is an example definition using \texttt{\string\theorems}.
     \end{definition}
 
     \begin{thm}[Example Thm]
-        This is an example thm using \texttt{$\backslash$theorems}.
+        This is an example thm using \texttt{\string\theorems}.
     
         \[
             \classNP \subset \classPpoly \implies \classPH = \classPHsigma{2}
@@ -37,8 +35,8 @@
     \makegrouproster
     \subsection*{Exercise 1}
     \paragraph*{Question 1}
-        Example with $\backslash${}maketitle and $\backslash${}makegrouproster
+        Example with \texttt{\string\maketitle} and \texttt{\string\makegrouproster}.
     \[
-        \int_{-\infty}^{\infty} e^{-r^2}dr = \sqrt\pi
+        \int_{-\infty}^{\infty} e^{-r^2}dr = \sqrt\pi \lusymbol hi
     \]
 \end{document}
