@@ -1,12 +1,12 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%- kernzerfall's LaTeX Theme for Homework -%%%%
 %%%%-                                        -%%%%
-%%%%- Revision: Rf-01.07.2024                -%%%%
+%%%%- Revision: R10-10.10.2024               -%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ------ Requirements ------ %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{kernzerfall_hw}[2024/07/01 kernzerfall's LaTeX theme for Homework]
+\ProvidesPackage{kernzerfall_hw}[2024/10/10 kernzerfall's LaTeX theme for Homework]
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{csvsimple}
 \RequirePackage{bookmark}
@@ -35,8 +35,6 @@
     % Geometry
     \usepackage[a4paper, top=2cm, left=2cm, right=2cm]{geometry}
 
-    \usepackage[T1]{fontenc}
-
     % Math Symbols
     \usepackage{amsmath}
     \usepackage{mathtools}
@@ -55,8 +53,17 @@
         \usepackage[british, ngerman]{babel}
     \fi
 
+    % (Later) Yoink some glyphs from AMSFonts, and Computer Modern
+    \DeclareSymbolFont{AMSa}{U}{msa}{m}{n}
+    \DeclareSymbolFont{lmsy}{OMS}{lmsy}{m}{n}
+
     % Depending on if@mpro, switch to Minion Pro
     \if@kzflmpro
+        \usepackage[T1]{fontenc}
+
+        % TT Font
+        \usepackage[scale=0.95]{inconsolata}
+
         % Look at https://github.com/sebschub/FontPro to install this
         % The Minion Pro typeface itself needs to be licensed from Adobe
         \usepackage[
@@ -71,25 +78,33 @@
         \renewcommand{\sffamily}{\fontfamily{\sfdefault}\selectfont}
         \DeclareMathAlphabet{\mathsf}{OT1}{\sfdefault}{m}{n}
 
-        % Yoink some glyphs from AMSFonts, and Computer Modern
-        \DeclareSymbolFont{AMSa}{U}{msa}{m}{n}
-        \DeclareSymbolFont{lmsy}{OMS}{lmsy}{m}{n}
-
         % Square and lozenge from AMSFonts, the ones in MnSymbol are smol
         \DeclareMathSymbol{\square}{\mathord}{AMSa}{"03}
         \DeclareMathSymbol{\lozenge}{\mathord}{AMSa}{"06}
-
-        % Triangle from LModern, same reason as above
-        \DeclareMathSymbol{\triangle}{\mathord}{lmsy}{"34}
-
-        % mathsf from lmss
-        \DeclareMathAlphabet{\mathlmss}{\encodingdefault}{lmss}{m}{n}
     \else
-        \usepackage{newpxtext}
-        \usepackage{newpxmath}
-        \usepackage{amsfonts}
-        \useosf % -> oldstyle numbers in text via newpxtext
+        \ifLuaTeX
+            \usepackage{fontspec}
+            \usepackage[osf, mono=false]{libertinus}
+            \setmonofont[
+                Scale=0.95
+            ]{inconsolata.otf}
+
+            \let\triangle\undefined
+        \else
+            % I don't really support anything other than luatex, but
+            % keep this here for completeness.
+            \usepackage[T1]{fontenc}
+            \usepackage{newpxmath}
+            \usepackage{newpxtext}
+            \useosf
+        \fi
     \fi
+
+    % Triangle from LModern, same reason as above
+    \DeclareMathSymbol{\triangle}{\mathord}{lmsy}{"34}
+
+    % mathsf from lmss
+    \DeclareMathAlphabet{\mathlmss}{\encodingdefault}{lmss}{m}{n}
 
     % Other
     \usepackage{scrlayer-scrpage}
@@ -320,6 +335,15 @@
 \newcommand{\leventuallysymbol}{\lozenge}
 \newcommand{\lgloballysymbol}{\square}
 \newcommand{\lprobsymbol}{\mathbb{P}}
+
+% Base Until
+\newcommand{\lu}{\ensuremath{\mathbin{\lusymbol}}}
+% Until with superscript
+\newcommand{\lusup}[1]{\ensuremath{\mathbin{\lusymbol^{#1}}}}
+% Until with interval superscript
+\newcommand{\luint}[2]{\lusup{[#1, #2]}}
+% Until with <= superscript
+\newcommand{\lun}[1]{\lusup{\leq #1}}
 
 % Next/eventually/globally
 \newcommand{\lnext}{\ensuremath{\mathord{\lnextsymbol}}}
