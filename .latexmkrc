@@ -20,7 +20,7 @@ $out_dir = "build/";
 $aux_dir = "build/";
 
 # Output pdf name
-$jobname = "output;
+$jobname = "output";
 
 # Main file name
 @default_files = ('main.tex');
