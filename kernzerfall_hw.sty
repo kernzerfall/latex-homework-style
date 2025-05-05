@@ -1,25 +1,42 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%- kernzerfall's LaTeX Theme for Homework -%%%%
 %%%%-                                        -%%%%
-%%%%- Revision: R10-10.10.2024               -%%%%
+%%%%- Revision: R11-05.05.2025               -%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % ------ Requirements ------ %
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{kernzerfall_hw}[2024/10/10 kernzerfall's LaTeX theme for Homework]
+\ProvidesPackage{kernzerfall_hw}[2025/05/05 kernzerfall's LaTeX theme for Homework]
 \RequirePackage[hidelinks]{hyperref}
-\RequirePackage{csvsimple}
+\RequirePackage{csvsimple-l3}
 \RequirePackage{bookmark}
 \RequirePackage{iftex}
 
+% Use zref to link to arbitrary text by page number
+% \hyperpageref -> \pagelabel
+% https://tex.stackexchange.com/a/549807
+\RequirePackage{zref-base,zref-user,zref-totpages}
+\zref@newprop*{pagedest}[Doc-Start]{page.\@the@H@page}
+\zref@addprop{main}{pagedest}
+\newcommand\hyperpageref[1]{\hyperlink{\zref@extract{#1}{pagedest}}{\pageref*{#1}}}
+\newcommand\pagelabel[1]{\label{#1}\zlabel{#1}}
+
 % Injection of boilerplate, is also toggled as a dependency
 % of some other options
-\newif\if@kzflboilerplate
+\newif\if@kzflboilerplate\@kzflboilerplatefalse
 \DeclareOption{boilerplate}{\@kzflboilerplatetrue}
 
 % Injection of theorem environments
-\newif\if@kzflthm
+\newif\if@kzflthm\@kzflthmfalse
 \DeclareOption{thm}{\@kzflthmtrue}
+
+% Default layers for exercise sheets
+\newif\if@kzfllayers\@kzfllayersfalse
+\DeclareOption{layers}{\@kzfllayerstrue}
+
+% Git stuff. Only enable in git repositories to avoid errors
+\newif\if@kzflgit\@kzflgitfalse
+\DeclareOption{git}{\@kzflgittrue}
 
 % Use english for tables, babel, etc
 \newif\if@kzflenglish\@kzflenglishtrue
@@ -33,7 +50,7 @@
 % ------ Inject boilerplate ------ %
 \newcommand{\kzfl@injectboilerplate}{
     % Geometry
-    \usepackage[a4paper, top=2cm, left=2cm, right=2cm]{geometry}
+    \usepackage[a4paper, top=2cm, left=2cm, right=2cm, bottom=2.5cm]{geometry}
 
     % Math Symbols
     \usepackage{amsmath}
@@ -44,6 +61,8 @@
 
     % Graphics
     \usepackage{tikz}
+    \usepackage{pgfplots}
+    \usepackage{subcaption}
     \usepackage{graphicx}
     \usepackage{pdfpages}
 
@@ -84,12 +103,13 @@
     \else
         \ifLuaTeX
             \usepackage{fontspec}
-            \usepackage[osf, mono=false]{libertinus}
+            \usepackage{unicode-math}
+            \usepackage[osf,proportional]{libertinus}
             \setmonofont[
-                Scale=0.95
-            ]{inconsolata.otf}
-
+                Scale=MatchLowercase
+            ]{inconsolata}
             \let\triangle\undefined
+            \DeclareMathSymbol{\square}{\mathord}{AMSa}{"03}
         \else
             % I don't really support anything other than luatex, but
             % keep this here for completeness.
@@ -188,45 +208,6 @@
 \def\twodigits#1{\ifnum#1<10 0\fi\the#1}
 \def\bettertoday{\leavevmode\hbox{\twodigits\day.\twodigits\month.\the\year}}
 
-% ------ Environment variables ------ %
-\newcommand{\semester}[1]{\def\@semester{#1}}
-\def\@semester{}
-\newcommand{\class}[1]{\def\@class{#1}}
-\def\@class{}
-\newcommand{\assignment}[1]{\def\@assignment{#1}}
-\def\@assignment{}
-\newcommand{\titlemisc}[1]{\def\@titlemisc{#1}}
-\def\@titlemisc{\,}
-
-% ------ Group Roster Table ------- %
-
-% Path to CSV
-% Default path: working directory/group.csv
-\def \groupcsv{group.csv}
-% Command to update csv path
-\newcommand{\usegroupcsv}[1]{\def \groupcsv{#1}}
-
-\if@kzflenglish
-    \def\@rosternames{First, Last Name}
-    \def\@rosterids{ID}
-\else
-    \def\@rosternames{Vor- und Nachname}
-    \def\@rosterids{Matrikelnummer}
-\fi
-
-\newcommand{\makegrouproster}{%
-    \begin{center}%
-        \vspace{0.5\baselineskip}%
-        \csvreader[tabular=|l|c|,%
-            table head=\hline\bfseries{\hfill\@rosternames\hfill} & \bfseries{\@rosterids}\\\hline,%
-            late after line=\\,%
-            late after last line=\\\hline%
-        ]{\groupcsv}%
-        {name=\name, matrnr=\matrnr}%
-        {\name & \texttt{\matrnr}}%
-    \end{center}
-}
-
 % ------ Maketitle ------ %
 \DeclareOption{customtitle}{
     \renewcommand{\maketitle}%
@@ -254,15 +235,6 @@
         }}%
     }}%
 }
-
-% Exercise sect
-\if@kzflenglish
-    \newcommand{\@exercisetext}{Exercise}
-\else
-    \newcommand{\@exercisetext}{Aufgabe}
-\fi
-\newcommand{\exercise}[1]{\section*{\@exercisetext{} {#1}}}
-\newcommand{\subexercise}[1]{\paragraph*{({#1})}}
 
 % Better enumerations
 \renewcommand{\theenumi}{\roman{enumi}}
@@ -476,7 +448,7 @@
  }
 
 % ------ LuaTeX stuff ------ %
-\ifLuaTeX
+\ifLuaTeX\if@kzflgit
 
 % Inject short git commit hash
 \newcommand{\githash}{%
@@ -515,7 +487,7 @@
     }%
 }
 
-\fi % \ifLuaTeX ------------ %
+\fi\fi % \if@kzflgit\ifLuaTeX ------------ %
 
 % Drawing Finite Automata
 \newcommand{\tikzfosap}{%
@@ -596,3 +568,88 @@
 \if@kzflthm
     \kzfl@injecttheorems
 \fi
+
+\if@kzfllayers
+    \AtBeginDocument{\thispagestyle{empty}}
+    \ofoot{\normalfont$\thepage\mathbin{/}\ztotpages$}
+    \cfoot{}
+    \ifoot{%
+        \csvreader[before line={\ifcsvfirstrow{}{~$\vert$~}}]
+            {\groupcsv}
+            {matrnr=\matrnr}{\texttt{\matrnr}}}
+    \ohead{\scshape \MakeLowercase{\@class{}~\@semestershort}}
+    \ihead{\scshape \MakeLowercase\@assignment}
+\fi
+
+
+% ------ Environment variables ------ %
+\newcommand{\semester}[2][]{\def\@semester{#2}\def\@semestershort{#1}}
+\def\@semester{}
+\def\@semestershort{}
+\newcommand{\class}[1]{\def\@class{#1}}
+\def\@class{}
+\newcommand{\assignment}[1]{\def\@assignment{#1}}
+\def\@assignment{}
+\newcommand{\titlemisc}[1]{\def\@titlemisc{#1}}
+\def\@titlemisc{\,}
+
+% ------ Group Roster Table ------- %
+% This needs to be BELOW ProcessOptions, since it relies
+% on @kzflenglish being set.
+
+% Path to CSV
+% Default path: working directory/group.csv
+\def \groupcsv{group.csv}
+% Command to update csv path
+\newcommand{\usegroupcsv}[1]{\def \groupcsv{#1}}
+
+\if@kzflenglish
+    \def\@rosternames{First, Last Name}
+    \def\@rosterids{ID}
+\else
+    \def\@rosternames{Vor-, Nachname}
+    \def\@rosterids{Matr.-Nr.}
+\fi
+
+\newcommand{\makegrouproster}{%
+    \begin{center}%
+        \vspace{0.5\baselineskip}%
+        \csvreader[tabular=|l|c|,%
+            table head=\hline\bfseries{\hfill\@rosternames\hfill} & \bfseries{\@rosterids}\\\hline,%
+            late after line=\\,%
+            late after last line=\\\hline%
+        ]{\groupcsv}%
+        {name=\name, matrnr=\matrnr}%
+        {\name & \texttt{\matrnr}}%
+    \end{center}
+}
+
+% Exercise sect
+\if@kzflenglish
+    \newcommand{\@exercisetext}{Exercise}
+\else
+    \newcommand{\@exercisetext}{Aufgabe}
+\fi
+\newcommand{\exercise}[1]{\section*{\@exercisetext{} {#1}}}
+\newcommand{\subexercise}[1]{\paragraph*{({#1})}}
+
+
+
+% Simple colors that are not as harsh as the default ones.
+\RequirePackage{xcolor}
+
+\definecolor{kzfl-blue}{cmyk}{1,.5,0,0}
+\definecolor{kzfl-black}{cmyk}{0,0,0,1}
+\definecolor{kzfl-magenta}{cmyk}{0,1,.25,0}
+\definecolor{kzfl-yellow}{cmyk}{0,0,1,0}
+\definecolor{kzfl-petrol}{cmyk}{1,.3,.5,.3}
+\definecolor{kzfl-turquoise}{cmyk}{1,0,.4,0}
+\definecolor{kzfl-green}{cmyk}{.7,0,1,0}
+\definecolor{kzfl-maygreen}{cmyk}{.35,0,1,0}
+\definecolor{kzfl-orange}{cmyk}{0,.4,1,0}
+\definecolor{kzfl-red}{cmyk}{.15,1,1,0}
+\definecolor{kzfl-bordeaux}{cmyk}{.25,1,.7,.2}
+\definecolor{kzfl-violet}{cmyk}{.6,.6,0,0}
+\definecolor{kzfl-purple}{cmyk}{.7,1,.35,.15}
+\definecolor{kzfl-silver}{cmyk}{.39,.31,.32,.14}
+\definecolor{kzfl-gold}{cmyk}{.35,.46,.7,.35}
