@@ -80,10 +80,11 @@
     \DeclareSymbolFont{AMSa}{U}{msa}{m}{n}
     \DeclareSymbolFont{lmsy}{OMS}{lmsy}{m}{n}
 
+    % Font stuff
+    \usepackage[T1]{fontenc}
+    
     % Depending on if@mpro, switch to Minion Pro
     \if@kzflmpro
-        \usepackage[T1]{fontenc}
-
         % TT Font
         \usepackage[scale=0.95]{inconsolata}
 
@@ -100,11 +101,6 @@
         \renewcommand{\sfdefault}{LinuxBiolinumT-OsF}
         \renewcommand{\sffamily}{\fontfamily{\sfdefault}\selectfont}
         \DeclareMathAlphabet{\mathsf}{OT1}{\sfdefault}{m}{n}
-
-        % Square and lozenge from AMSFonts, the ones in MnSymbol are smol
-        \DeclareMathSymbol{\squaresym}{\mathord}{AMSa}{"03}
-        \renewcommand{\square}{\raisebox{-0.9pt}{$\squaresym$}}
-        % \DeclareMathSymbol{\lozenge}{\mathord}{AMSa}{"06}
     \else
         \ifLuaTeX
             \usepackage{fontspec}
@@ -114,26 +110,22 @@
                 Scale=MatchLowercase
             ]{inconsolata}
             \let\triangle\undefined
-            \DeclareMathSymbol{\square}{\mathord}{AMSa}{"03}
             \usepackage{MnSymbol}
         \else
             % I don't really support anything other than luatex, but
             % keep this here for completeness.
-            \usepackage[T1]{fontenc}
             \usepackage{newpxmath}
             \usepackage{newpxtext}
             \useosf
         \fi
     \fi
 
-    % Triangle from LModern, same reason as above
-    \DeclareMathSymbol{\triangle}{\mathord}{lmsy}{"34}
-
     % mathsf from lmss
     \DeclareMathAlphabet{\mathlmss}{\encodingdefault}{lmss}{m}{n}
 
     % Other
     \usepackage{scrlayer-scrpage}
+    \usepackage[capitalize]{cleverref}
     \usepackage{draftwatermark}
     \usepackage{framed}
     \if@kzflenglish
@@ -192,7 +184,7 @@
                 ####1~####2~~\normalfont(####3)%
             \theorem@separator]}
     \theoremstyle{kzflthm}
-    \theoremsymbol{\ensuremath{\triangle}}
+    \theoremsymbol{\ensuremath{\largetriangleup}}
 
     \if@kzflthmsectnum
         \newtheorem{definition}{Definition}[section]
@@ -588,7 +580,7 @@
 % Common macros
 \newcommand{\ds}[1]{\,\,{#1}\,\,}
 \newcommand{\sothat}{\ds|}
-\newcommand{\qed}{\ensuremath{\square}}
+\newcommand{\qed}{\ensuremath{\largesquare}}
 \newcommand{\qedright}{\hfill\qed}
 \newcommand{\qea}{\lightning}
 
