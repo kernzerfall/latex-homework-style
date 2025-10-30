@@ -257,163 +257,6 @@
     }%
 }
 
-% ------ Little things to make my life easier ------ %
-% Returns either the function name (#2) or function(#1) if called with the optional argument
-\newcommand{\functionorname}[2][]{
-    {\ensuremath{%
-        {\operatorname{\mathsf{#2}}}%
-        {\Ifstr{#1}{}{}{%
-            \left(#1\right)%
-        }}%
-    }}%
-}
-
-% Inserts string centerd between horizontal lines
-% Stolen from https://tex.stackexchange.com/questions/243651/center-text-between-horizontal-lines-extending-to-the-margin-on-either-side
-\newcommand{\strhrule}[2][.4pt]{%
-    \par\vspace{\topsep}
-    \noindent\makebox[\textwidth]{%
-        \sbox0{#2}%
-        \dimen0=.5\dimexpr\ht0+#1\relax
-        \dimen2=-.5\dimexpr\ht0-#1\relax
-        \leaders\hrule height \dimen0 depth \dimen2\hfill
-        \quad #2\quad
-        \leaders\hrule height \dimen0 depth \dimen2\hfill
-    }\par\nopagebreak\vspace{\topsep}
-}
-
-% Better enumerations
-\renewcommand{\theenumi}{\roman{enumi}}
-\renewcommand{\labelenumi}{(\theenumi)}
-\renewcommand{\theenumii}{\alph{enumii}}
-\renewcommand{\labelenumii}{(\theenumii)}
-\renewcommand{\theenumiii}{\arabic{enumiii}}
-\renewcommand{\labelenumiii}{(\theenumiii)}
-
-% Common macros
-\newcommand{\ds}[1]{\,\,{#1}\,\,}
-\newcommand{\sothat}{\ds|}
-\newcommand{\qed}{\ensuremath{\square}}
-\newcommand{\qedright}{\hfill\qed}
-\newcommand{\qea}{\lightning}
-
-% Common math sets
-\newcommand{\C}{\ensuremath{\mathbb C}}
-\newcommand{\RR}{\ensuremath{\mathbb R}}
-\newcommand{\Q}{\ensuremath{\mathbb Q}}
-\newcommand{\Z}{\ensuremath{\mathbb Z}}
-\newcommand{\N}{\ensuremath{\mathbb N}}
-
-% Common mathcal letters
-\newcommand{\calA}{\ensuremath{\mathcal A}}
-\newcommand{\calB}{\ensuremath{\mathcal B}}
-\newcommand{\calM}{\ensuremath{\mathcal M}}
-\newcommand{\calD}{\ensuremath{\mathcal D}}
-\newcommand{\calP}{\ensuremath{\mathcal P}}
-
-% ------ All things logic ------ %
-
-% Logic - Common Structures and Fraktur Symbols
-\newcommand{\fA}{\ensuremath{\mathfrak A}}
-\newcommand{\fB}{\ensuremath{\mathfrak B}}
-\newcommand{\I}{\ensuremath{\mathfrak I}} % Also complex analysis
-\newcommand{\R}{\ensuremath{\mathfrak R}} % Also complex analysis
-
-% Logic - Operators
-\newcommand{\xor}{\ensuremath{\oplus}}
-\newcommand{\impl}{\ensuremath{\rightarrow}}
-
-% Set theory stuff
-\newcommand{\acc}[1]{\ensuremath{\operatorname{acc}\left({#1}\right) }}
-
-% Logic - Interpretation
-\newcommand{\intp}[2]{%
-    \ensuremath{%
-        \left\llbracket{#2}\right\rrbracket^{\mathfrak{#1}}
-    }%
-}
-
-% Logic - Function stuff
-
-% Bijective twohead hook right arrow
-\newcommand{\bij}{%
-  \hookrightarrow\mathrel{\mspace{-12.5mu}}\rightarrow
-}
-
-% Surjective twohead rightarrow (x) variant
-\newcommand{\xtwoheadrightarrow}[2][]{%
-  \xrightarrow[#1]{#2}\mathrel{\mkern-12.5mu}\rightarrow
-}
-
-% Injective
-\newcommand{\inj}{%
-  \hookrightarrow
-}
-
-% Logic - Modal stuff
-
-% Raw Logic Symbols
-\newcommand{\lusymbol}{\mathlmss{U}}
-\newcommand{\lrsymbol}{\mathlmss{R}}
-\newcommand{\lnextsymbol}{\bigcirc}
-\newcommand{\leventuallysymbol}{\lozenge}
-\newcommand{\lgloballysymbol}{\square}
-\newcommand{\lprobsymbol}{\mathbb{P}}
-
-% Base Until
-\newcommand{\lu}{\ensuremath{\mathbin{\lusymbol}}}
-% Until with superscript
-\newcommand{\lusup}[1]{\ensuremath{\mathbin{\lusymbol^{#1}}}}
-% Until with interval superscript
-\newcommand{\luint}[2]{\lusup{[#1, #2]}}
-% Until with <= superscript
-\newcommand{\lun}[1]{\lusup{\leq #1}}
-
-% Base Release
-\newcommand{\lr}{\ensuremath{\mathbin{\lrsymbol}}}
-
-% Next/eventually/globally
-\newcommand{\lnext}{\ensuremath{\mathord{\lnextsymbol}}}
-\newcommand{\levent}{\ensuremath{\mathord{\leventuallysymbol}}}
-\newcommand{\leventn}[1]{\ensuremath{\levent^{\leq #1}}}
-\newcommand{\lglob}{\ensuremath{\mathord{\lgloballysymbol}}}
-
-% Misc symbols
-\newcommand{\ltrue}{\texttt{true}}
-\newcommand{\lfalse}{\texttt{false}}
-\newcommand{\quant}{\mathfrak{Q}}
-
-% Set shortcuts
-\newcommand{\ap}{\ensuremath{\mathsf{AP}}}
-\newcommand{\act}{\ensuremath{\mathsf{Act}}}
-
-
-% Variables
-\newcommand{\var}[2][]{%
-    \expandafter\ensuremath{%
-        \expandafter\hat{#2}%
-            \Ifstr{#1}{}{}{_{#1}}%
-        }%
-    }%
-
-% Sequences
-\newcommand{\seq}[1]{\ensuremath{\overline{#1}}}
-% Sequences of variables
-\newcommand{\seqvar}[1]{\ensuremath{\tilde{#1}}}
-
-% (Path) Traces
-\newcommand{\trace}{\ensuremath{\mathsf{trace}}}
-
-% Inserts [a]tomic [p]roposition (#2) [m]arked with a variable (#3) and optionally index [#1]
-% -> Not using an optarg would result int \var{a_b} which would make the hat a little lopsided
-%    and I can't live with that...
-\newcommand{\apm}[3][]{%
-    \ensuremath{%
-        {#2}_{%
-            \var[#1]{#3}
-        }%
-    }%
-}
 
 % ------ Complexity Stuff ------ %
 \DeclareOption{complexity}{
@@ -708,3 +551,161 @@
 \definecolor{kzfl-purple}{cmyk}{.7,1,.35,.15}
 \definecolor{kzfl-silver}{cmyk}{.39,.31,.32,.14}
 \definecolor{kzfl-gold}{cmyk}{.35,.46,.7,.35}
+
+% ------ Little things to make my life easier ------ %
+% Returns either the function name (#2) or function(#1) if called with the optional argument
+\newcommand{\functionorname}[2][]{
+    {\ensuremath{%
+        {\operatorname{\mathsf{#2}}}%
+        {\Ifstr{#1}{}{}{%
+            \left(#1\right)%
+        }}%
+    }}%
+}
+
+% Inserts string centerd between horizontal lines
+% Stolen from https://tex.stackexchange.com/questions/243651/center-text-between-horizontal-lines-extending-to-the-margin-on-either-side
+\newcommand{\strhrule}[2][.4pt]{%
+    \par\vspace{\topsep}
+    \noindent\makebox[\textwidth]{%
+        \sbox0{#2}%
+        \dimen0=.5\dimexpr\ht0+#1\relax
+        \dimen2=-.5\dimexpr\ht0-#1\relax
+        \leaders\hrule height \dimen0 depth \dimen2\hfill
+        \quad #2\quad
+        \leaders\hrule height \dimen0 depth \dimen2\hfill
+    }\par\nopagebreak\vspace{\topsep}
+}
+
+% Better enumerations
+\renewcommand{\theenumi}{\roman{enumi}}
+\renewcommand{\labelenumi}{(\theenumi)}
+\renewcommand{\theenumii}{\alph{enumii}}
+\renewcommand{\labelenumii}{(\theenumii)}
+\renewcommand{\theenumiii}{\arabic{enumiii}}
+\renewcommand{\labelenumiii}{(\theenumiii)}
+
+% Common macros
+\newcommand{\ds}[1]{\,\,{#1}\,\,}
+\newcommand{\sothat}{\ds|}
+\newcommand{\qed}{\ensuremath{\square}}
+\newcommand{\qedright}{\hfill\qed}
+\newcommand{\qea}{\lightning}
+
+% Common math sets
+\newcommand{\C}{\ensuremath{\mathbb C}}
+\newcommand{\RR}{\ensuremath{\mathbb R}}
+\newcommand{\Q}{\ensuremath{\mathbb Q}}
+\newcommand{\Z}{\ensuremath{\mathbb Z}}
+\newcommand{\N}{\ensuremath{\mathbb N}}
+
+% Common mathcal letters
+\newcommand{\calA}{\ensuremath{\mathcal A}}
+\newcommand{\calB}{\ensuremath{\mathcal B}}
+\newcommand{\calM}{\ensuremath{\mathcal M}}
+\newcommand{\calD}{\ensuremath{\mathcal D}}
+\newcommand{\calP}{\ensuremath{\mathcal P}}
+
+% ------ All things logic ------ %
+
+% Logic - Common Structures and Fraktur Symbols
+\newcommand{\fA}{\ensuremath{\mathfrak A}}
+\newcommand{\fB}{\ensuremath{\mathfrak B}}
+\newcommand{\I}{\ensuremath{\mathfrak I}} % Also complex analysis
+\newcommand{\R}{\ensuremath{\mathfrak R}} % Also complex analysis
+
+% Logic - Operators
+\newcommand{\xor}{\ensuremath{\oplus}}
+\newcommand{\impl}{\ensuremath{\rightarrow}}
+
+% Set theory stuff
+\newcommand{\acc}[1]{\ensuremath{\operatorname{acc}\left({#1}\right) }}
+
+% Logic - Interpretation
+\newcommand{\intp}[2]{%
+    \ensuremath{%
+        \left\llbracket{#2}\right\rrbracket^{\mathfrak{#1}}
+    }%
+}
+
+% Logic - Function stuff
+
+% Bijective twohead hook right arrow
+\newcommand{\bij}{%
+  \hookrightarrow\mathrel{\mspace{-12.5mu}}\rightarrow
+}
+
+% Surjective twohead rightarrow (x) variant
+\newcommand{\xtwoheadrightarrow}[2][]{%
+  \xrightarrow[#1]{#2}\mathrel{\mkern-12.5mu}\rightarrow
+}
+
+% Injective
+\newcommand{\inj}{%
+  \hookrightarrow
+}
+
+% Logic - Modal stuff
+
+% Raw Logic Symbols
+\newcommand{\lusymbol}{\mathlmss{U}}
+\newcommand{\lrsymbol}{\mathlmss{R}}
+\newcommand{\lnextsymbol}{\bigcirc}
+\newcommand{\leventuallysymbol}{\lozenge}
+\newcommand{\lgloballysymbol}{\square}
+\newcommand{\lprobsymbol}{\mathbb{P}}
+
+% Base Until
+\newcommand{\lu}{\ensuremath{\mathbin{\lusymbol}}}
+% Until with superscript
+\newcommand{\lusup}[1]{\ensuremath{\mathbin{\lusymbol^{#1}}}}
+% Until with interval superscript
+\newcommand{\luint}[2]{\lusup{[#1, #2]}}
+% Until with <= superscript
+\newcommand{\lun}[1]{\lusup{\leq #1}}
+
+% Base Release
+\newcommand{\lr}{\ensuremath{\mathbin{\lrsymbol}}}
+
+% Next/eventually/globally
+\newcommand{\lnext}{\ensuremath{\mathord{\lnextsymbol}}}
+\newcommand{\levent}{\ensuremath{\mathord{\leventuallysymbol}}}
+\newcommand{\leventn}[1]{\ensuremath{\levent^{\leq #1}}}
+\newcommand{\lglob}{\ensuremath{\mathord{\lgloballysymbol}}}
+
+% Misc symbols
+\newcommand{\ltrue}{\texttt{true}}
+\newcommand{\lfalse}{\texttt{false}}
+\newcommand{\quant}{\mathfrak{Q}}
+
+% Set shortcuts
+\newcommand{\ap}{\ensuremath{\mathsf{AP}}}
+\newcommand{\act}{\ensuremath{\mathsf{Act}}}
+
+
+% Variables
+\newcommand{\var}[2][]{%
+    \expandafter\ensuremath{%
+        \expandafter\hat{#2}%
+            \Ifstr{#1}{}{}{_{#1}}%
+        }%
+    }%
+
+% Sequences
+\newcommand{\seq}[1]{\ensuremath{\overline{#1}}}
+% Sequences of variables
+\newcommand{\seqvar}[1]{\ensuremath{\tilde{#1}}}
+
+% (Path) Traces
+\newcommand{\trace}{\ensuremath{\mathsf{trace}}}
+
+% Inserts [a]tomic [p]roposition (#2) [m]arked with a variable (#3) and optionally index [#1]
+% -> Not using an optarg would result int \var{a_b} which would make the hat a little lopsided
+%    and I can't live with that...
+\newcommand{\apm}[3][]{%
+    \ensuremath{%
+        {#2}_{%
+            \var[#1]{#3}
+        }%
+    }%
+}
