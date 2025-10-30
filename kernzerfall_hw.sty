@@ -28,11 +28,15 @@
 
 % Injection of theorem environments
 \newif\if@kzflthm\@kzflthmfalse
-\DeclareOption{thm}{\@kzflthmtrue}
+\DeclareOption{thm}{\@kzflthmtrue\@kzflboilerplatetrue}
+
+% Enables section-based numbering for defined theorem environments
+\newif\if@kzflthmsectnum\@kzflthmsectnumfalse
+\DeclareOption{thmsectnum}{\@kzflthmsectnumtrue}
 
 % Default layers for exercise sheets
 \newif\if@kzfllayers\@kzfllayersfalse
-\DeclareOption{layers}{\@kzfllayerstrue}
+\DeclareOption{layers}{\@kzfllayerstrue\@kzflboilerplatetrue}
 
 % Git stuff. Only enable in git repositories to avoid errors
 \newif\if@kzflgit\@kzflgitfalse
@@ -98,8 +102,9 @@
         \DeclareMathAlphabet{\mathsf}{OT1}{\sfdefault}{m}{n}
 
         % Square and lozenge from AMSFonts, the ones in MnSymbol are smol
-        \DeclareMathSymbol{\square}{\mathord}{AMSa}{"03}
-        \DeclareMathSymbol{\lozenge}{\mathord}{AMSa}{"06}
+        \DeclareMathSymbol{\squaresym}{\mathord}{AMSa}{"03}
+        \renewcommand{\square}{\raisebox{-0.9pt}{$\squaresym$}}
+        % \DeclareMathSymbol{\lozenge}{\mathord}{AMSa}{"06}
     \else
         \ifLuaTeX
             \usepackage{fontspec}
@@ -110,6 +115,7 @@
             ]{inconsolata}
             \let\triangle\undefined
             \DeclareMathSymbol{\square}{\mathord}{AMSa}{"03}
+            \usepackage{MnSymbol}
         \else
             % I don't really support anything other than luatex, but
             % keep this here for completeness.
@@ -129,7 +135,6 @@
     % Other
     \usepackage{scrlayer-scrpage}
     \usepackage{draftwatermark}
-    \usepackage[capitalize]{cleveref}
     \usepackage{framed}
     \if@kzflenglish
         \usepackage[style=english]{csquotes}
@@ -167,14 +172,12 @@
 
 % ------ Therorem stuff ------ %
 \newcommand{\kzfl@injecttheorems}{
-    % this heavily relies on the boilerplate
-    \@kzflboilerplatetrue
-
     % def/thm numbering
     \if@kzflmpro\else
         % newpxmath clashes with amsthm on openbox...
         \let\openbox\undefined
     \fi
+    \usepackage[capitalize]{cleveref}
     \usepackage[amsmath, amsthm, thmmarks]{ntheorem}
     \theoremheaderfont{\normalfont\bfseries}
     \theorembodyfont{\normalfont}
@@ -191,11 +194,40 @@
     \theoremstyle{kzflthm}
     \theoremsymbol{\ensuremath{\triangle}}
 
-    \newtheorem{definition}{Definition}[section]
+    \if@kzflthmsectnum
+        \newtheorem{definition}{Definition}[section]
+    \else
+        \newtheorem{definition}{Definition}
+    \fi
     \newtheorem{thm}[definition]{Theorem}
     \newtheorem{satz}[definition]{Satz}
     \newtheorem{lemma}[definition]{Lemma}
     \newtheorem{kor}[definition]{Korollar}
+    \newtheorem{block}[definition]{Block}
+    \newtheorem{example}[definition]{Example}
+    \newtheorem{claim}[definition]{Claim}
+    \newtheorem{cor}[definition]{Corollary}
+    \newtheorem{prop}[definition]{Proposition}
+
+    \AddToHook{env/thm/begin}{\crefalias{definition}{theorem}}
+    \AddToHook{env/lemma/begin}{\crefalias{definition}{lemma}}
+    \AddToHook{env/cor/begin}{\crefalias{definition}{cor}}
+    \AddToHook{env/prop/begin}{\crefalias{definition}{prop}}
+    \AddToHook{env/claim/begin}{\crefalias{definition}{claim}}
+    \AddToHook{env/example/begin}{\crefalias{definition}{example}}
+
+    \Crefname{definition}{Definition}{Definitions}
+    \crefname{definition}{definition}{definitions}
+    \Crefname{thm}{Theorem}{Theorems}
+    \crefname{thm}{theorem}{theorems}
+    \Crefname{lemma}{Lemma}{Lemmata}
+    \crefname{lemma}{lemma}{lemmata}
+    \Crefname{cor}{Corollary}{Corollaries}
+    \crefname{cor}{corollary}{corollaries}
+    \Crefname{prop}{Proposition}{Propositions}
+    \crefname{prop}{proposition}{propositions}
+    \Crefname{claim}{Claim}{Claims}
+    \crefname{claim}{claim}{claims}
 }
 
 % ------ Metadata ------ %
@@ -234,6 +266,20 @@
             \left(#1\right)%
         }}%
     }}%
+}
+
+% Inserts string centerd between horizontal lines
+% Stolen from https://tex.stackexchange.com/questions/243651/center-text-between-horizontal-lines-extending-to-the-margin-on-either-side
+\newcommand{\strhrule}[2][.4pt]{%
+    \par\vspace{\topsep}
+    \noindent\makebox[\textwidth]{%
+        \sbox0{#2}%
+        \dimen0=.5\dimexpr\ht0+#1\relax
+        \dimen2=-.5\dimexpr\ht0-#1\relax
+        \leaders\hrule height \dimen0 depth \dimen2\hfill
+        \quad #2\quad
+        \leaders\hrule height \dimen0 depth \dimen2\hfill
+    }\par\nopagebreak\vspace{\topsep}
 }
 
 % Better enumerations
@@ -291,7 +337,12 @@
 
 % Bijective twohead hook right arrow
 \newcommand{\bij}{%
-  \hookrightarrow\mathrel{\mspace{-15mu}}\rightarrow
+  \hookrightarrow\mathrel{\mspace{-12.5mu}}\rightarrow
+}
+
+% Surjective twohead rightarrow (x) variant
+\newcommand{\xtwoheadrightarrow}[2][]{%
+  \xrightarrow[#1]{#2}\mathrel{\mkern-12.5mu}\rightarrow
 }
 
 % Injective
@@ -303,6 +354,7 @@
 
 % Raw Logic Symbols
 \newcommand{\lusymbol}{\mathlmss{U}}
+\newcommand{\lrsymbol}{\mathlmss{R}}
 \newcommand{\lnextsymbol}{\bigcirc}
 \newcommand{\leventuallysymbol}{\lozenge}
 \newcommand{\lgloballysymbol}{\square}
@@ -316,6 +368,9 @@
 \newcommand{\luint}[2]{\lusup{[#1, #2]}}
 % Until with <= superscript
 \newcommand{\lun}[1]{\lusup{\leq #1}}
+
+% Base Release
+\newcommand{\lr}{\ensuremath{\mathbin{\lrsymbol}}}
 
 % Next/eventually/globally
 \newcommand{\lnext}{\ensuremath{\mathord{\lnextsymbol}}}
@@ -344,7 +399,7 @@
 % Sequences
 \newcommand{\seq}[1]{\ensuremath{\overline{#1}}}
 % Sequences of variables
-\newcommand{\seqvar}[1]{\ensuremath{\var{\seq{#1}}}}
+\newcommand{\seqvar}[1]{\ensuremath{\tilde{#1}}}
 
 % (Path) Traces
 \newcommand{\trace}{\ensuremath{\mathsf{trace}}}
