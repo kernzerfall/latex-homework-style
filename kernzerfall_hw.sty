@@ -554,7 +554,7 @@
 
 % ------ Little things to make my life easier ------ %
 % Returns either the function name (#2) or function(#1) if called with the optional argument
-\newcommand{\functionorname}[2][]{
+\DeclareRobustCommand{\functionorname}[2][]{
     {\ensuremath{%
         {\operatorname{\mathsf{#2}}}%
         {\Ifstr{#1}{}{}{%
