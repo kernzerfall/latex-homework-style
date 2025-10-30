@@ -169,8 +169,10 @@
         % newpxmath clashes with amsthm on openbox...
         \let\openbox\undefined
     \fi
-    \usepackage[capitalize]{cleveref}
-    \usepackage[amsmath, amsthm, thmmarks]{ntheorem}
+    \usepackage[amsmath, thmmarks]{ntheorem}
+    \def\qed{\ensuremath{\largesquare}}
+    \def\qedright{\hfill\qed}
+
     \theoremheaderfont{\normalfont\bfseries}
     \theorembodyfont{\normalfont}
     \theoremseparator{.}
@@ -183,6 +185,26 @@
             \hskip\labelsep\theorem@headerfont%
                 ####1~####2~~\normalfont(####3)%
             \theorem@separator]}
+    \newtheoremstyle{kzflproof}%
+        {\item[%
+            \hskip\labelsep\itshape%
+                Proof%
+            \theorem@separator]}%
+        {\item[%
+            \hskip\labelsep\itshape%
+                ####3%
+            \theorem@separator]}
+
+    % Proofs need a qed
+    \theoremstyle{kzflproof}
+    \theoremsymbol{\qed}
+    \newtheorem{proof}{Proof}
+
+    % Subproofs (e.g. for nested claims) should have a different symbol
+    \theoremstyle{kzflproof}
+    \theoremsymbol{\ensuremath{\lrcorner}}
+    \newtheorem{subproof}{Proof}
+
     \theoremstyle{kzflthm}
     \theoremsymbol{\ensuremath{\largetriangleup}}
 
@@ -201,6 +223,8 @@
     \newtheorem{cor}[definition]{Corollary}
     \newtheorem{prop}[definition]{Proposition}
 
+    \AddToHook{env/proof/begin}{\crefalias{definition}{proof}}
+    \AddToHook{env/subproof/begin}{\crefalias{definition}{subproof}}
     \AddToHook{env/thm/begin}{\crefalias{definition}{theorem}}
     \AddToHook{env/lemma/begin}{\crefalias{definition}{lemma}}
     \AddToHook{env/cor/begin}{\crefalias{definition}{cor}}
@@ -208,6 +232,10 @@
     \AddToHook{env/claim/begin}{\crefalias{definition}{claim}}
     \AddToHook{env/example/begin}{\crefalias{definition}{example}}
 
+    \Crefname{proof}{Proof}{Proofs}
+    \crefname{proof}{proof}{proofs}
+    \Crefname{subproof}{Proof}{Proofs}
+    \crefname{subproof}{proof}{proofs}
     \Crefname{definition}{Definition}{Definitions}
     \crefname{definition}{definition}{definitions}
     \Crefname{thm}{Theorem}{Theorems}
@@ -588,8 +616,9 @@
 % Common macros
 \newcommand{\ds}[1]{\,\,{#1}\,\,}
 \newcommand{\sothat}{\ds|}
-\renewcommand{\qed}{\ensuremath{\largesquare}}
-\newcommand{\qedright}{\hfill\qed}
+% These may be alredy defined by @kzflthm
+\providecommand{\qed}{\ensuremath{\square}}
+\providecommand{\qedright}{\hfill\qed}
 \newcommand{\qea}{\lightning}
 
 % Common math sets
