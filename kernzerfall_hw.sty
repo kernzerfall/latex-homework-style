@@ -459,19 +459,6 @@
     \kzfl@injecttheorems
 \fi
 
-\if@kzfllayers
-    \AtBeginDocument{\thispagestyle{empty}}
-    \ofoot{\normalfont$\thepage\mathbin{/}\ztotpages$}
-    \cfoot{}
-    \ifoot{%
-        \csvreader[before line={\ifcsvfirstrow{}{~$\vert$~}}]
-            {\groupcsv}
-            {matrnr=\matrnr}{\texttt{\matrnr}}}
-    \ohead{\scshape \MakeLowercase{\@class{}~\@semestershort}}
-    \ihead{\scshape \MakeLowercase\@assignment}
-\fi
-
-
 % ------ Environment variables ------ %
 \newcommand{\semester}[2][]{\def\@semester{#2}\def\@semestershort{#1}}
 \def\@semester{}
@@ -482,6 +469,27 @@
 \def\@assignment{}
 \newcommand{\titlemisc}[1]{\def\@titlemisc{#1}}
 \def\@titlemisc{\,}
+
+% ------ Layers with matriculation numbers etc. ------ %
+\if@kzfllayers
+    \AtBeginDocument{%
+        \thispagestyle{empty}%
+        \makeatother%
+        % We read the csv only ONCE at BeginDocument, and save the string with the ID nums
+        \def\@kzflmatrnrline%
+            {\csvreader[before line={\ifcsvfirstrow{}{~$\vert$~}}]
+                {\groupcsv}
+                {matrnr=\matrnr}{\texttt{\matrnr}}}%
+        \makeatletter%
+    }
+    \ofoot{\normalfont$\thepage\mathbin{/}\ztotpages$}
+    \cfoot{}
+    \ifoot{\@kzflmatrnrline}
+    \ohead{\scshape \MakeLowercase{\@class{}~\@semestershort}}
+    \ihead{\scshape \MakeLowercase\@assignment}
+\fi
+
+
 
 % ------ Group Roster Table ------- %
 % This needs to be BELOW ProcessOptions, since it relies
