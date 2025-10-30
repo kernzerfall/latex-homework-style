@@ -363,7 +363,77 @@
     % The above as functions on (#1).
     \newcommand{\fpost}[1]{\post_{#1}}
     \newcommand{\fpostast}[1]{\postast\!\!_{#1}}
- }
+
+    % ---- TikZ style templates ---- %
+    % TikZ Base Preset For DTMCs
+    \newcommand{\tikzdtmc}{
+        \tikzset{
+            every edge/.style = {
+                =>, -stealth, draw=black
+            },
+            every loop/.append style = {
+                =>, -stealth, draw=black
+            },
+            node distance = 2cm,
+            label/.style = {
+                draw = none,
+                fill = none,
+                color = black,
+            },
+            labelnw/.style = {
+                label,
+                xshift = -0.65cm,
+                yshift =  0.65cm,
+            },
+            labelne/.style = {
+                label,
+                xshift =  0.65cm,
+                yshift =  0.65cm,
+            },
+            labelsw/.style = {
+                label,
+                xshift = -0.65cm,
+                yshift = -0.65cm,
+            },
+            labelse/.style = {
+                label,
+                xshift =  0.65cm,
+                yshift = -0.65cm,
+            },
+        }
+    }
+
+    % Variation of the above with bigger nodes (for complex node labels)
+    \newcommand{\tikzdtmcBIG}{
+        % load normal preset
+        \tikzdtmc
+        % change what needs changing
+        \tikzset{
+            state/.append style = {
+                minimum width = 7.25ex, % so that nodes with less text are as big as
+                                        % the ones with more text
+            },
+            node distance = 2.5cm,
+            % shifts STACK, these are offsets from the original
+            labelnw/.append style = {
+                xshift = -0.15cm,
+                yshift =  0.15cm,
+            },
+            labelne/.append style = {
+                xshift =  0.15cm,
+                yshift =  0.15cm,
+            },
+            labelsw/.append style = {
+                xshift = -0.15cm,
+                yshift = -0.15cm,
+            },
+            labelse/.append style = {
+                xshift =  0.15cm,
+                yshift = -0.15cm,
+            },
+        }
+    }
+}
 
 % ------ LuaTeX stuff ------ %
 \ifLuaTeX\if@kzflgit
