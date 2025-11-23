@@ -3,7 +3,7 @@
 [![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
 [![MIT License](https://img.shields.io/github/license/kernzerfall/latex-homework-style)](https://github.com/kernzerfall/latex-homework-style/blob/main/LICENSE)
 
-A robust, modular LaTeX suite designed for math & theoretical computer science homework, 
+A robust, modular LaTeX template designed for math & theoretical computer science homework, 
 providing boilerplate automation, theorem environments, and domain-specific macros for complexity theory, 
 logic, automata, and Markov chains. The preset tries to adhere to classical typography rules as much as possible.
 
