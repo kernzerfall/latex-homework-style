@@ -11,10 +11,11 @@
 \RequirePackage{iftex}
 \RequireLuaTeX
 
-% Injection of boilerplate, is also toggled as a dependency
-% of some other options
-\newif\if@kzflboilerplate\@kzflboilerplatefalse
-\DeclareOption{boilerplate}{\@kzflboilerplatetrue}
+% Injection of boilerplate by default
+% Set noboilerplate option to disable this
+% Some other options (e.g. thm) implicitly enable this as well, since they rely on it
+\newif\if@kzflboilerplate\@kzflboilerplatetrue
+\DeclareOption{noboilerplate}{\@kzflboilerplatefalse}
 
 % Injection of theorem environments
 \newif\if@kzflthm\@kzflthmfalse
