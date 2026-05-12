@@ -3,19 +3,19 @@
 [![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
 [![MIT License](https://img.shields.io/github/license/kernzerfall/latex-homework-style)](https://github.com/kernzerfall/latex-homework-style/blob/main/LICENSE)
 
-A robust, modular LaTeX template designed for math & theoretical computer science homework, 
+A robust, modular **LuaLaTeX** template designed for math & theoretical computer science homework, 
 providing boilerplate automation, theorem environments, and domain-specific macros for complexity theory, 
 logic, automata, and Markov chains. The preset tries to adhere to classical typography rules as much as possible.
 
 ## Installation & Setup
 
-1.  **Download:** Get `kernzerfall_hw.sty` and place it in your project directory (or your local texmf tree).
-2.  **Basic Usage:** Import the package in your document preamble.
+1.  Download: Get `kernzerfall_hw.sty` and place it in your project directory (or your local texmf tree).
+2.  Basic Usage: Import the package in your document preamble.
    ```latex
    \documentclass[a4paper]{scrartcl} % Recommended class
    
    % Load the package with desired modules
-   \usepackage[boilerplate, thm, customtitle, complexity, layers]{kernzerfall_hw}
+   \usepackage[thm, customtitle, complexity, layers]{kernzerfall_hw}
    
    % --- Configuration ---
    \class{Computability \& Complexity}
@@ -49,24 +49,24 @@ Load these options via `\usepackage[option1, option2]{kernzerfall_hw}`.
 
 ### Core & Layout
 
-| Option | Description |
-| :--- | :--- |
+| Option        | Description                                                                                                                                                         |
+| :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `boilerplate` | **(Recommended)** Loads essential packages (`geometry`, `babel`, `tikz`, `hyperref`, `amsmath`, `mathtools`, etc.) and sets standard formatting (margins, headers). |
-| `customtitle` | Redefines `\maketitle` to use the specialized `\class`, `\semester`, and `\assignment` commands. |
-| `german` | Sets `babel` to `ngerman` and localizes table headers (e.g., "Vorname" instead of "First Name"). Default is English. |
-| `minionpro` | Configures the `MinionPro` font and `LinuxBiolinum` for sans-serif. *Note: Requires valid font files installed.* |
-| `layers` | Adds a footer containing the matriculation numbers from your group CSV to every page. Helpful if the PDF is supposed to be printed/stapled together. |
-| `fpmarks` | Adds DIN 5008 (Type A) fold and punch marks to the left margin. |
-| `git` | **(LuaTeX only)** Enables git integration, exposing `\githash` and `\dirty` commands. |
+| `customtitle` | Redefines `\maketitle` to use the specialised `\class`, `\semester`, and `\assignment` commands.                                                                    |
+| `german`      | Sets `babel` to `ngerman` and localizes table headers (e.g., "Vorname" instead of "First Name"). Default is English.                                                |
+| `minionpro`   | Configures the `MinionPro` font and `LinuxBiolinum` for sans-serif. *Note: Requires valid font files installed.*                                                    |
+| `layers`      | Adds a footer containing the matriculation numbers from your group CSV to every page. Helpful if the PDF is supposed to be printed/stapled together.                |
+| `fpmarks`     | Adds DIN 5008 (Type A) fold and punch marks to the left margin.                                                                                                     |
+| `git`         | **(LuaTeX only)** Enables git integration, exposing `\githash` and `\dirty` commands.                                                                               |
 
 ### Modules
 
-| Option | Description |
-| :--- | :--- |
-| `thm` | Loads `ntheorem` and pre-defines a suite of environments (Theorem, Lemma, Proof, etc.). Implies `boilerplate`. |
-| `thmsectnum` | Changes theorem numbering to be section-based (e.g., "Definition 1.1") rather than global. |
-| `complexity` | Defines shorthands for complexity classes (`\classP`, `\classNP`) and Turing machine notation. |
-| `markov` | Defines macros and TikZ styles for Markov Chains (DTMC) and decision processes. |
+| Option       | Description                                                                                                    |
+| :----------- | :------------------------------------------------------------------------------------------------------------- |
+| `thm`        | Loads `ntheorem` and pre-defines a suite of environments (Theorem, Lemma, Proof, etc.). Implies `boilerplate`. |
+| `thmsectnum` | Changes theorem numbering to be section-based (e.g., "Definition 1.1") rather than global.                     |
+| `complexity` | Defines shorthands for complexity classes (`\classP`, `\classNP`) and Turing machine notation.                 |
+| `markov`     | Defines macros and TikZ styles for Markov Chains (DTMC) and decision processes.                                |
 
 ## Metadata Commands
 
@@ -84,14 +84,6 @@ are *explicitly* used by `\maketitle` (feature: `customtitle`) and `\makegroupro
 
 The package automatically configures fonts based on your LaTeX engine and options.
 
-### Default Behavior
-
-  * **LuaTeX:** Uses `libertinus` (Libertine) with `unicode-math`. Monospace is set to `Inconsolata`.
-  * **PDFLaTeX:** Uses `newpxtext` and `newpxmath` (Palatino-like) with Old Style Figures (`osf`).
-
-PDFLaTeX is mostly just included for completeness, I generally don't use it, and it may have buggy
-behaviour on the template.
-
 ### Minion Pro Option (`minionpro`)
 
 If the `minionpro` option is passed, the package overrides defaults to use the Adobe Minion Pro typeface. 
@@ -99,47 +91,12 @@ If the `minionpro` option is passed, the package overrides defaults to use the A
 **Note:** This requires the `MinionPro` package and font files to be installed on your system (see [sebschub/FontPro](https://github.com/sebschub/FontPro)).
 The fontface itself needs to be licenced from Adobe!
 
-  * **Serif:** Minion Pro (with swash, lining figures in math).
-  * **Sans-Serif:** Linux Biolinum (Scale adjusted to match Minion).
-  * **Monospace:** Inconsolata (Scale 0.95).
-  * **Math:** Minion Pro + MnSymbol.
+  * Serif: Minion Pro (with swash, lining figures in math).
+  * Sans-Serif: Linux Biolinum (Scale adjusted to match Minion).
+  * Monospace: Inconsolata (Scale 0.95).
+  * Math: Minion Pro + MnSymbol.
 
-## Pre-loaded Packages
-
-When `boilerplate` is enabled, the following configuration is applied.
-
-### Layout & Page Structure
-
-  * **`geometry`**: Configured for A4 paper with `top=2cm`, `left=2cm`, `right=2cm`, `bottom=2.5cm`.
-  * **`scrlayer-scrpage`**: Manages headers and footers. Generally incompatible with `fancyhdr`.
-  * **`draftwatermark`**: Loaded but disabled by default (`scale=0`).
-
-### Mathematics & Logic
-
-  * **`amsmath`, `mathtools`**: The standard math suite.
-  * **`stmaryrd`**: "St. Mary's Road" symbol font (provides brackets like `\llbracket`).
-  * **`microtype`**: Improves justification and spacing.
-  * **`csquotes`**: Context-sensitive quotes (adapts to English/German).
-
-### Graphics
-
-  * **`tikz`**: Includes libraries `automata`, `shapes.arrows`, `positioning`, `shapes.geometric`.
-  * **`pgfplots`**: For plotting data.
-  * **`subcaption`**: For sub-figures.
-  * **`graphicx`, `pdfpages`**: For including external images and PDFs.
-
-### Utilities
-
-  * **`hyperref`**: Loaded with `hidelinks` to prevent red boxes around links.
-  * **`bookmark`**: Improved PDF bookmarks.
-  * **`cleveref`**: Loaded with `[capitalize]`. Use `\cref{}` to automatically print "Theorem 1" instead of just "1".
-  * **`xcolor`**: Defines custom utility colors (`codegreen`, `codegray`, `codepurple`, `fosapblue`, `fosappink`) and a softer, less harsh CMYK palette for general use:
-      * `kzfl-blue`, `kzfl-black`, `kzfl-magenta`, `kzfl-yellow`
-      * `kzfl-petrol`, `kzfl-turquoise`, `kzfl-green`, `kzfl-maygreen`
-      * `kzfl-orange`, `kzfl-red`, `kzfl-bordeaux`
-      * `kzfl-violet`, `kzfl-purple`, `kzfl-silver`, `kzfl-gold`
-
-## Features in Detail
+## Features
 
 **Note:** This is an *incomplete* list. Look in the `.sty` to see everything that is defined.
 
@@ -155,17 +112,17 @@ Alan Turing, 135790
 Noam Chomsky, 123456
 ```
 
-  * **English mode:** Headers are "First, Last Name" and "ID".
-  * **German mode:** Headers are "Vor-, Nachname" and "Matr.-Nr.".
-  * **Layer Integration:** If the `layers` option is enabled, the `matrnr` column is read and displayed in the footer of every page.
+  * English mode: Headers are "First, Last Name" and "ID".
+  * German mode: Headers are "Vor-, Nachname" and "Matr.-Nr.".
+  * Layer Integration: If the `layers` option is enabled, the `matrnr` column is read and displayed in the footer of every page.
 
 ### 2\. Theorem Environments (Option `thm`)
 
 The package uses `ntheorem` to provide stylized environments.
 
-  * **Primary:** `definition`, `thm` (Theorem), `lemma`, `satz`, `kor` (Corollary), `prop` (Proposition).
-  * **Structure:** `proof` (ends with $\square$), `subproof` (ends with $\lrcorner$), `claim`, `example`.
-  * **Auto-referencing:** `cleveref` is pre-configured. Use `\cref{label}` for smart references (e.g., "Theorem 2").
+  * Primary: `definition`, `thm` (Theorem), `lemma`, `satz`, `kor` (Corollary), `prop` (Proposition).
+  * Structure: `proof` (ends with $\square$), `subproof` (ends with $\lrcorner$), `claim`, `example`.
+  * Auto-referencing: `cleveref` is pre-configured. Use `\cref{label}` for smart references (e.g., "Theorem 2").
 
 ### 3\. Complexity Theory (Option `complexity`)
 
@@ -182,10 +139,10 @@ Simplifies writing rigorous complexity proofs.
 
 **Turing Machines:**
 
-  * **Alphabet:** `\sast` ($\Sigma^\ast$), `\gast` ($\Gamma^\ast$)
-  * **Symbols:** `\blk` ($\square$, blank), `\mend` ($\triangleright$, left marker)
-  * **States:** `\qacc` ($q_+$), `\qrej` ($q_-$), `\qinit` ($q_{init}$)
-  * **Relations:** `\expath` ($\stackrel{*}{\to}$)
+  * Alphabet: `\sast` ($\Sigma^\ast$), `\gast` ($\Gamma^\ast$)
+  * Symbols: `\blk` ($\square$, blank), `\mend` ($\triangleright$, left marker)
+  * States: `\qacc` ($q_+$), `\qrej` ($q_-$), `\qinit` ($q_{init}$)
+  * Relations: `\expath` ($\stackrel{*}{\to}$)
 
 ### 4\. Logic & Sets (Standard)
 
@@ -193,7 +150,7 @@ These macros are available by default or with `boilerplate`.
 
 **Standard Sets:**
 
-  * `\N`, `\Z`, `\Q`, `\R`, `\C` (Blackboard bold)
+  * `\N`, `\Z`, `\Q`, `\RR`, `\C` (Blackboard bold)
   * `\fA`, `\fB`, `\I`, `\R` (Fraktur for structures/interpretations)
 
 **LTL & Modal Logic:**
@@ -211,33 +168,30 @@ These macros are available by default or with `boilerplate`.
 
 ### 5\. Automata & Graphs
 
-  * **`\tikzfosap`**: A TikZ preset for drawing finite automata. Sets specific arrow styles (`stealth`), node distances, and state styles (`fill=gray!10`).
-  * **`\tikzdtmc`** (requires `markov`): A preset for Discrete Time Markov Chains with standard edge/loop styles.
-  * **`\paths`**: Macro for path sets ($\mathsf{Paths}$).
-  * **`\post`**, `\postast`: Macros for successor sets ($\mathsf{Post}$, $\mathsf{Post}^*$).
+  * `\tikzfosap`: A TikZ preset for drawing finite automata. Sets specific arrow styles (`stealth`), node distances, and state styles (`fill=gray!10`).
+  * `\tikzdtmc` (requires `markov`): A preset for Discrete Time Markov Chains with standard edge/loop styles.
+  * `\paths`: Macro for path sets ($\mathsf{Paths}$).
+  * `\post`, `\postast`: Macros for successor sets ($\mathsf{Post}$, $\mathsf{Post}^*$).
+  * `\pre`, `\preast`: Macros for predecessor sets ($\mathsf{Pre}$, $\mathsf{Pre}^*$).
 
-### 6\. Code Listings
-
-  * **`\codestyle`**: Configures `lstlistings` with a "Solarized-lite" color scheme (green comments, purple strings) and line numbers.
-
-### 7\. Git Integration (Option `git`)
+### 6\. Git Integration (Option `git`)
 
 This feature injects the current git commit hash and status into your document.
 
 **Requirements:**
 
-  * **Option:** You must load the package with `\usepackage[git]{kernzerfall_hw}`.
-  * **Engine:** LuaTeX is **required** (it uses `directlua` to execute shell commands).
-  * **Flags:** You must compile with `--shell-escape` (e.g., `lualatex --shell-escape main.tex`).
+  * Option: You must load the package with `\usepackage[git]{kernzerfall_hw}`.
+  * Flags: You must compile with `--shell-escape` (e.g., `lualatex --shell-escape main.tex`).
 
 **Commands:**
 
-  * **`\githash`**: Prints the short hash of the current commit.
-  * **`\dirty`**: Returns "1" if the working directory has uncommitted changes, "0" otherwise.
+  * `\githash`: Prints the short hash of the current commit.
+  * `\dirty`: Returns "1" if the working directory has uncommitted changes, "0" otherwise.
+  * `\dirtyplus`: Returns "+" if the working directory has uncommitted changes, nothing otherwise.
 
 ## Lua Utilities
 
-The repository includes helper scripts in `lua-utils/` to automate workflow tasks. These require **LuaTeX**.
+The repository includes helper scripts in `lua-utils/` to automate workflow tasks.
 
 ### Auto-Include (`autoinclude.lua`)
 
