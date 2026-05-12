@@ -380,8 +380,14 @@
     % Set of direct successors
     \newcommand{\post}{\mathsf{Post}}
 
+    % Set of direct predecessors
+    \newcommand{\pre}{\mathsf{Pre}}
+
     % Set of reachable states (indirect succesors via finite path fragment)
     \newcommand{\postast}{\mathsf{Post}^{\ast}}
+
+    % Set of states that can reach us (indirect predecessors via finite path fragment)
+    \newcommand{\preast}{\mathsf{Pre}^{\ast}}
 
     % The above as functions on (#1).
     \newcommand{\fpost}[1]{\post_{#1}}
