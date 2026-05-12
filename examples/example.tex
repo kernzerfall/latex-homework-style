@@ -1,13 +1,29 @@
-\documentclass[a4paper]{scrartcl} % AFAIK my theme only supports `scrartcl`
+\documentclass[b5paper, parskip=half-]{scrartcl} % AFAIK my theme only supports `scrartcl`
 
 % Include style/config
 % Always do this last!
-\usepackage[customtitle, boilerplate, thm, complexity, layers]{kernzerfall_hw}
-\input{kernzerfall_hw.tex}
+\usepackage[customtitle, thm, complexity, layers, git]{kernzerfall_hw}
+
+% These three are used for \maketitle, make sure to set them
+\class{<class name>}
+\semester[<short semester>]{<semester>}
+\assignment{<assignment name>}
+\titlemisc{<optional - e.g. team>} % optional
+
+% This is used for \makegrouproster, which is optional
+% Set it if you want to automatically generate a group table
+% If omitted, "working directory/group.csv" will be set as default
+\usegroupcsv{group.csv}
+
+% Other options
+\date{\bettertoday}
+\bibliography{example.bib}
 
 \begin{document}
     \maketitle
-    \subsection*{Exercise 1}
+
+    \exercise{1}
+    \subexercise{a}
     \paragraph*{Question 1}
         Example with \texttt{\string\maketitle} only
     \[
@@ -15,11 +31,11 @@
     \]
 
     \begin{definition}[Example DFN]
-        This is an example definition using \texttt{\string\theorems}.
+        This is an example definition using \texttt{thm}.
     \end{definition}
 
-    \begin{thm}[Example Thm]
-        This is an example thm using \texttt{\string\theorems}.
+    \begin{thm}[Example Thm] \label{thm:example}
+        This is an example thm using \texttt{thm}.
     
         \[
             \classNP \subset \classPpoly \implies \classPH = \classPHsigma{2}
@@ -29,14 +45,98 @@
         \end{proof}
     \end{thm}
 
+    We are at git commit \texttt{\githash\dirtyplus}.
+
+    This is a URL: \href{https://www.example.com}{https://www.example.com}.
+    See \Cref{thm:example} for an example theorem, and \cite{graedel1992capturing} for an example citation.
+    \printbibliography
+
 
     \newpage
     \maketitle
     \makegrouproster
-    \subsection*{Exercise 1}
-    \paragraph*{Question 1}
+    \exercise{2}
+    \subexercise{b}
+    
         Example with \texttt{\string\maketitle} and \texttt{\string\makegrouproster}.
     \[
         \int_{-\infty}^{\infty} e^{-r^2}dr = \sqrt\pi
     \]
+
+    \begin{definition}[Example DFN]
+        This is an example definition using \texttt{thm}.
+    \end{definition}
+
+    \begin{thm}[Example Thm] \label{thm:example2}
+        This is an example thm using \texttt{thm}.
+    
+        \[
+            \classNP \subset \classPpoly \implies \classPH = \classPHsigma{2}
+        \]
+        \begin{proof}
+            Trivial. (not really)
+        \end{proof}
+    \end{thm}
+
+    \begin{itemize}[itemsep=0pt]
+        \item This is an example itemize list.
+        \item It uses the \texttt{enumitem} package, which is loaded by default.
+        \begin{itemize}[itemsep=0pt]
+            \item This is a nested itemize list.
+            \item Look at the nice labels
+            \begin{itemize}[itemsep=0pt]
+                \item This is a nested nested itemize list.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+
+    We are at git commit \texttt{\githash\dirtyplus}.
+
+
+    This is a URL: \href{https://www.example.com}{https://www.example.com}.
+    See \Cref{thm:example2} for an example theorem, and \cite{graedel1992capturing} for an example citation.
+    \printbibliography
+
+    \newpage
+    \exercise{3}
+    \subexercise{c}
+    
+        Example page without title and roster.
+    \[
+        \int_{-\infty}^{\infty} e^{-r^2}dr = \sqrt\pi
+    \]
+
+    \begin{definition}[Example DFN]
+        This is an example definition using \texttt{thm}.
+    \end{definition}
+
+    \begin{thm}[Example Thm] \label{thm:example2}
+        This is an example thm using \texttt{thm}.
+    
+        \[
+            \classNP \subset \classPpoly \implies \classPH = \classPHsigma{2}
+        \]
+        \begin{proof}
+            Trivial. (not really)
+        \end{proof}
+    \end{thm}
+
+    \begin{itemize}[itemsep=0pt]
+        \item This is an example itemize list.
+        \item It uses the \texttt{enumitem} package, which is loaded by default.
+        \begin{itemize}[itemsep=0pt]
+            \item This is a nested itemize list.
+            \item Look at the nice labels
+            \begin{itemize}[itemsep=0pt]
+                \item This is a nested nested itemize list.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+
+    We are at git commit \texttt{\githash\dirtyplus}.
+
+
+    This is a URL: \href{https://www.example.com}{https://www.example.com}.
+    See \Cref{thm:example2} for an example theorem, and \cite{graedel1992capturing} for an example citation.
+    \printbibliography
 \end{document}
