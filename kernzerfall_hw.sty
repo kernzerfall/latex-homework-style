@@ -340,10 +340,19 @@
     \crefname{remark}{remark}{remarks}
 }
 
-% ------ Metadata ------ %
+% ------ Hyperref Setup ------ %
 \AtBeginDocument{
-    \hypersetup{bookmarksnumbered=true,%
-    }
+    \hypersetup{%
+        bookmarksnumbered=true,
+	    pdftoolbar=false,
+	    % pdfmenubar=false,
+	    colorlinks,
+	    % pdfborderstyle={/S/U/W 1.25},
+        urlcolor={kzfl-magenta},
+        linkcolor={kzfl-blue},
+        citecolor={kzfl-green},
+        pdfencoding=auto,
+    }%
 }
 
 % A better \today macro with leading zeroes
