@@ -51,10 +51,18 @@
 \newif\if@kzflmpro\@kzflmprofalse
 \DeclareOption{minionpro}{\@kzflboilerplatetrue\@kzflmprotrue}
 
+% Use b5 instead of a4. The Satzspiegel is calculated to be the same across both
+\newif\if@kzflbfp\@kzflbfptrue
+\DeclareOption{a4paper}{\@kzflbfpfalse}
+
 % ------ Inject boilerplate ------ %
 \newcommand{\kzfl@injectboilerplate}{
     % Geometry
-    \usepackage[a4paper, top=2cm, left=2cm, right=2cm, bottom=2.5cm]{geometry}
+    \if@kzflbfp
+        \usepackage[b5paper, top=12.375mm, left=23.1mm, right=23.1mm, bottom=20.625mm]{geometry}
+    \else
+        \usepackage[a4paper, top=3cm, left=40.1mm, right=40.1mm, bottom=5cm]{geometry}
+    \fi
 
     % Math Symbols
     \usepackage{amsmath}
@@ -65,7 +73,6 @@
 
     % Graphics
     \usepackage{tikz}
-    \usetikzlibrary{automata, shapes.arrows}
     \usepackage{pgfplots}
     \usepackage{subcaption}
     \usepackage{graphicx}
