@@ -130,22 +130,14 @@
         \renewcommand{\sffamily}{\fontfamily{\sfdefault}\selectfont}
         \DeclareMathAlphabet{\mathsf}{OT1}{\sfdefault}{m}{n}
     \else
-        \ifLuaTeX
-            \usepackage{fontspec}
-            \usepackage{unicode-math}
-            \usepackage[osf,proportional]{libertinus}
-            \setmonofont[
-                Scale=MatchLowercase
-            ]{inconsolata}
-            \let\triangle\undefined
-            \usepackage{MnSymbol}
-        \else
-            % I don't really support anything other than luatex, but
-            % keep this here for completeness.
-            \usepackage{newpxmath}
-            \usepackage{newpxtext}
-            \useosf
-        \fi
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+        \usepackage[osf,proportional]{libertinus}
+        \setmonofont[
+            Scale=MatchLowercase
+        ]{inconsolata}
+        \let\triangle\undefined
+        \usepackage{MnSymbol}
     \fi
 
     % mathsf from lmss
