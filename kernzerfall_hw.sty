@@ -185,8 +185,6 @@
     \def\qed{\ensuremath{\largesquare}}
     \def\qedright{\hfill\qed}
 
-    \theoremheaderfont{\normalfont\bfseries}
-    \theorembodyfont{\normalfont}
     \theoremseparator{.}
     \newtheoremstyle{kzflthm}%
         {\item[%
@@ -209,28 +207,38 @@
 
     % Proofs need a qed
     \theoremstyle{kzflproof}
+    \theoremheaderfont{\normalfont\bfseries}
+    \theorembodyfont{\normalfont}
     \theoremsymbol{\qed}
     \newtheorem{proof}{Proof}
 
     % Subproofs (e.g. for nested claims) should have a different symbol
     \theoremstyle{kzflproof}
+    \theoremheaderfont{\normalfont\bfseries}
+    \theorembodyfont{\normalfont}
     \theoremsymbol{\ensuremath{\lrcorner}}
     \newtheorem{subproof}{Proof}
 
     \theoremstyle{kzflthm}
-    \theoremsymbol{\ensuremath{\largetriangleup}}
-
+    \theoremsymbol{}
+    \theoremheaderfont{\normalfont\bfseries}
+    \theorembodyfont{\normalfont}
     \if@kzflthmsectnum
         \newtheorem{definition}{Definition}[section]
     \else
         \newtheorem{definition}{Definition}
     \fi
+    \newtheorem{remark}[definition]{Remark}
+    \newtheorem{example}[definition]{Example}
+
+
+    \theoremheaderfont{\normalfont\bfseries}
+    \theorembodyfont{\normalfont\itshape}
     \newtheorem{thm}[definition]{Theorem}
     \newtheorem{satz}[definition]{Satz}
     \newtheorem{lemma}[definition]{Lemma}
     \newtheorem{kor}[definition]{Korollar}
     \newtheorem{block}[definition]{Block}
-    \newtheorem{example}[definition]{Example}
     \newtheorem{claim}[definition]{Claim}
     \newtheorem{cor}[definition]{Corollary}
     \newtheorem{prop}[definition]{Proposition}
@@ -243,6 +251,7 @@
     \AddToHook{env/prop/begin}{\crefalias{definition}{prop}}
     \AddToHook{env/claim/begin}{\crefalias{definition}{claim}}
     \AddToHook{env/example/begin}{\crefalias{definition}{example}}
+    \AddToHook{env/remark/begin}{\crefalias{definition}{remark}}
 
     \Crefname{proof}{Proof}{Proofs}
     \crefname{proof}{proof}{proofs}
@@ -260,6 +269,8 @@
     \crefname{prop}{proposition}{propositions}
     \Crefname{claim}{Claim}{Claims}
     \crefname{claim}{claim}{claims}
+    \Crefname{remark}{Remark}{Remarks}
+    \crefname{remark}{remark}{remarks}
 }
 
 % ------ Metadata ------ %
