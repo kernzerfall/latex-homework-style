@@ -525,47 +525,6 @@
     }
 }
 
-% ------ LuaTeX stuff ------ %
-\ifLuaTeX\if@kzflgit
-
-% Inject short git commit hash
-\newcommand{\githash}{%
-    \directlua{%
-        tex.print(io.popen"git rev-parse --short HEAD":read'*l')%
-    }%
-}
-
-% Queries the dirty status of the current project
-\directlua{%
-    function get_dirty()
-        local status = io.popen"git status --porcelain":read'*l'
-        return not (status == nil or status == '')
-    end
-
-    dirty = get_dirty()
-}%
-
-% Prints dirty status as 1/0
-\newcommand{\dirty}[0]{%
-    \protect\directlua{%
-        if dirty then
-            tex.print("1")
-        else
-            tex.print("0")
-        end
-    }%
-}
-
-% Prints "+" if dirty, otherwise nothing
-\newcommand{\dirtyplus}{%
-    \protect\directlua{%
-        if dirty then
-            tex.print("+")
-        end
-    }%
-}
-
-\fi\fi % \if@kzflgit\ifLuaTeX ------------ %
 
 % Drawing Finite Automata
 \newcommand{\tikzfosap}{%
@@ -638,6 +597,49 @@
 }
 
 \ProcessOptions\relax
+
+% ------ Git stuff ------ %
+% MUST be after ProcessOptions, since it relies on @kzflgit being set
+\if@kzflgit
+
+% Inject short git commit hash
+\newcommand{\githash}{%
+    \directlua{%
+        tex.print(io.popen"git rev-parse --short HEAD":read'*l')%
+    }%
+}
+
+% Queries the dirty status of the current project
+\directlua{%
+    function get_dirty()
+        local status = io.popen"git status --porcelain":read'*l'
+        return not (status == nil or status == '')
+    end
+
+    dirty = get_dirty()
+}%
+
+% Prints dirty status as 1/0
+\newcommand{\dirty}[0]{%
+    \protect\directlua{%
+        if dirty then
+            tex.print("1")
+        else
+            tex.print("0")
+        end
+    }%
+}
+
+% Prints "+" if dirty, otherwise nothing
+\newcommand{\dirtyplus}{%
+    \protect\directlua{%
+        if dirty then
+            tex.print("+")
+        end
+    }%
+}
+
+\fi % \if@kzflgit ------------ %
 
 \if@kzflboilerplate
     \kzfl@injectboilerplate
