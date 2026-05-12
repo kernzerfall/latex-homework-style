@@ -55,13 +55,31 @@
 \newif\if@kzflbfp\@kzflbfptrue
 \DeclareOption{a4paper}{\@kzflbfpfalse}
 
+% A4: deviate from a4-b5 correspondence and fill page on a4
+\newif\if@kzflfillpage\@kzflfillpagefalse
+\DeclareOption{a4fillpage}{\@kzflfillpagetrue\@kzflbfpfalse}
+
 % ------ Inject boilerplate ------ %
 \newcommand{\kzfl@injectboilerplate}{
     % Geometry
     \if@kzflbfp
-        \usepackage[b5paper, top=12.375mm, left=23.1mm, right=23.1mm, bottom=20.625mm]{geometry}
+        \if@kzfllayers
+            % layers need a bit of extra breathing room
+            \usepackage[b5paper, top=17mm, left=23.1mm, right=23.1mm, bottom=20.625mm]{geometry}
+        \else
+            \usepackage[b5paper, top=12.375mm, left=23.1mm, right=23.1mm, bottom=20.625mm]{geometry}
+        \fi
     \else
-        \usepackage[a4paper, top=3cm, left=40.1mm, right=40.1mm, bottom=5cm]{geometry}
+        \if@kzflfillpage
+            \usepackage[a4paper, top=20mm, left=20mm, right=20mm, bottom=25mm]{geometry}
+        \else
+            \if@kzfllayers
+                % layers need a bit of extra breathing room
+                \usepackage[a4paper, top=34.625mm, left=40.1mm, right=40.1mm, bottom=5cm]{geometry}
+            \else
+                \usepackage[a4paper, top=3cm, left=40.1mm, right=40.1mm, bottom=5cm]{geometry}
+            \fi
+        \fi
     \fi
 
     % Math Symbols
