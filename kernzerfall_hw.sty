@@ -98,6 +98,17 @@
             ]{MinionPro}
         \usepackage{MnSymbol}
 
+        % Mathbb from Libertinus is nice
+        % we need to take some stuff from the libertinust1math package
+        % to set it up, but _not_ the whole package, since it breaks other
+        % symbols
+        \newif\iflibus@sansmath\libus@sansmathfalse
+        \newif\iflibus@nosans\libus@nosanstrue
+        \DeclareFontEncoding{LS1}{}{}
+        \DeclareFontSubstitution{LS1}{libertinust1math}{m}{n}
+        \DeclareSymbolFont{symbolsbb}{LS1}{libertinust1mathbb}{m}{n}
+        \DeclareSymbolFontAlphabet{\mathbb}{symbolsbb}
+
         % LinBiolinum looks better than LMSS together with MPro
         \renewcommand{\sfdefault}{LinuxBiolinumT-OsF}
         \renewcommand{\sffamily}{\fontfamily{\sfdefault}\selectfont}
