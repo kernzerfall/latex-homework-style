@@ -49,15 +49,16 @@ Load these options via `\usepackage[option1, option2]{kernzerfall_hw}`.
 
 ### Core & Layout
 
-| Option        | Description                                                                                                                                                         |
-| :------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `boilerplate` | **(Recommended)** Loads essential packages (`geometry`, `babel`, `tikz`, `hyperref`, `amsmath`, `mathtools`, etc.) and sets standard formatting (margins, headers). |
-| `customtitle` | Redefines `\maketitle` to use the specialised `\class`, `\semester`, and `\assignment` commands.                                                                    |
-| `german`      | Sets `babel` to `ngerman` and localizes table headers (e.g., "Vorname" instead of "First Name"). Default is English.                                                |
-| `minionpro`   | Configures the `MinionPro` font and `LinuxBiolinum` for sans-serif. *Note: Requires valid font files installed.*                                                    |
-| `layers`      | Adds a footer containing the matriculation numbers from your group CSV to every page. Helpful if the PDF is supposed to be printed/stapled together.                |
-| `fpmarks`     | Adds DIN 5008 (Type A) fold and punch marks to the left margin.                                                                                                     |
-| `git`         | **(LuaTeX only)** Enables git integration, exposing `\githash` and `\dirty` commands.                                                                               |
+| Option          | Description                                                                                                                                                                  |
+| :-------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `noboilerplate` | **(NOT recommended)** Disables the loading of preconfigured essential packages (`geometry`, `babel`, `tikz`, `hyperref`, `amsmath`, `mathtools`, etc.) and default settings. |
+| `customtitle`   | Redefines `\maketitle` to use the specialised `\class`, `\semester`, and `\assignment` commands.                                                                             |
+| `german`        | Sets `babel` to `ngerman` and localizes table headers (e.g., "Vorname" instead of "First Name"). Default is English.                                                         |
+| `minionpro`     | Configures the `MinionPro` font and `LinuxBiolinum` for sans-serif. *Note: Requires valid font files installed.*                                                             |
+| `layers`        | Adds a footer containing the matriculation numbers from your group CSV to every page. Helpful if the PDF is supposed to be printed/stapled together.                         |
+| `fpmarks`       | Adds DIN 5008 (Type A) fold and punch marks to the left margin.                                                                                                              |
+| `git`           | **(LuaTeX only)** Enables git integration, exposing `\githash` and `\dirty` commands.                                                                                        |
+| `a4fillpage`    | By default the A4 typing area is tuned to be the same as B5. This sets it to fill the page.                                                                                  |
 
 ### Modules
 
